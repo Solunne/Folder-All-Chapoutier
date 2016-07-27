@@ -117,7 +117,7 @@ $vineyard = taxonomy_term_load($tidvineyard);
                         $type = taxonomy_term_load($tidtype);
                         //dpm($type);
                     ?>
-                    <span class="pull-left color <?php print $type->name; ?>" data-placement="top" data-trigger="hover" data-toggle="popover" title="<?php print t('Wine color'); ?>" data-content="<?php print $type->name; ?>"></span>
+                    <span class="pull-left color <?php print sanitized($type->name); ?>" data-placement="top" data-trigger="hover" data-toggle="popover" title="<?php print t('Wine color'); ?>" data-content="<?php print $type->name; ?>"></span>
                 <?php } ?>
             </div>
             <?php if(isset($content['product:commerce_price'])){ ?>
