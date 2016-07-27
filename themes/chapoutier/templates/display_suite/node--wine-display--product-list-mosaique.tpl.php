@@ -109,7 +109,7 @@ $vineyard = taxonomy_term_load($tidvineyard);
                     $tooltipimage = file_create_url($uritooltipimage);
                 ?>
                 <span class="pull-left bio">
-                    <img src="<?php print $tooltipimage; ?>" class="bio" data-placement="top" data-trigger="hover" data-toggle="popover" title="<?php print $translated_bio->name; ?>" data-content="<?php print $translated_bio->field_tooltip; ?>"/>
+                    <img src="<?php print $tooltipimage; ?>" class="bio" data-placement="top" data-trigger="hover" data-toggle="popover" title="<?php print $translated_bio->name; ?>" data-content="<?php print $translated_bio->field_tooltip['und'][0]['value']; ?>"/>
                 </span>
             <?php } ?>
             <?php if(isset($content['field_wine_type'])){ ?>
