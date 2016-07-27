@@ -1,0 +1,28 @@
+# Japanese translation of Commerce Message (7.x-1.0-rc3)
+# Copyright (c) 2015 by the Japanese translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Commerce Message (7.x-1.0-rc3)\n"
+"POT-Creation-Date: 2015-09-09 12:54+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Type"
+msgstr "タイプ"
+msgid "Save"
+msgstr "保存"
+msgid "History"
+msgstr "履歴"
+msgid "Message text"
+msgstr "メッセージテキスト"
+msgid "Add new comment"
+msgstr "コメントを追加"
+msgid "Display name"
+msgstr "表示名"
+msgid "Site logo"
+msgstr "サイトロゴ"

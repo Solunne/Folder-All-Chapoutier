@@ -1,0 +1,16 @@
+diff --git a/countries/commerce_eu_vat_fr/commerce_eu_vat_fr.module b/countries/commerce_eu_vat_fr/commerce_eu_vat_fr.module
+index 800050f..b4a6e51 100644
+--- a/countries/commerce_eu_vat_fr/commerce_eu_vat_fr.module
++++ b/countries/commerce_eu_vat_fr/commerce_eu_vat_fr.module
+@@ -47,6 +47,11 @@ function commerce_eu_vat_fr_commerce_vat_rate_info() {
+       'eu' => TRUE,
+       'title' => t('FR Intermediate'),
+       'rates' => array(
++        '10_2014' => array(
++          'name' => '10_2014',
++          'rate' => .1,
++          'start' => '20140101', // http://www.vatlive.com/european-news/french-u-turn-reduced-vat-will-stay-5-5/
++        ),
+         '07_2012' => array(
+           'name' => '07_2012',
+           'rate' => .07,

@@ -1,0 +1,24 @@
+# Japanese translation of Views Infinite Scroll (7.x-2.0-rc1)
+# Copyright (c) 2016 by the Japanese translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Views Infinite Scroll (7.x-2.0-rc1)\n"
+"POT-Creation-Date: 2016-02-10 02:46+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Views"
+msgstr "ビュー"
+msgid "Items to display"
+msgstr "表示件数"
+msgid "Offset"
+msgstr "オフセット"
+msgid ""
+"The number of items to skip. For example, if this field is 3, the "
+"first 3 items will be skipped and not displayed."
+msgstr "スキップする件数。例えば、このフィールドに3を入力すると、最初の3件がスキップされ、表示されなくなります。"

@@ -1,0 +1,16 @@
+name = Wassa Payline
+description = Intrègre l'API de paiement Payline en mode intégré (direct payment) ainsi que la gestion de cartes de paiement.
+core = 7.x
+package = Wassa
+dependencies[] = commerce_cardonfile
+
+configure = admin/config/wassa/payline
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Javascripts
+;;;;;;;;;;;;;;;;;;;;;

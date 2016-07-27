@@ -1,0 +1,191 @@
+2016-06-01 8:52:56 - ----------------------------------------------------------
+2016-06-01 8:52:56 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 8:52:58 - Request : DirectPaymentAPI.getToken(contract = 1234567 - cardNumber = 4970********2417)
+2016-06-01 8:52:58 - Response : code = 02500 - token = 
+2016-06-01 8:53:19 - ----------------------------------------------------------
+2016-06-01 8:53:19 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 8:53:21 - Request : DirectPaymentAPI.getToken(contract = 1234567 - cardNumber = 4970********2417)
+2016-06-01 8:53:21 - Response : code = 02500 - token = 
+2016-06-01 8:53:40 - ----------------------------------------------------------
+2016-06-01 8:53:40 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 8:53:43 - Request : DirectPaymentAPI.getToken(contract = 1234567 - cardNumber = 4970********2417)
+2016-06-01 8:53:43 - Response : code = 02500 - token = 
+2016-06-01 11:45:37 - ----------------------------------------------------------
+2016-06-01 11:45:37 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 11:45:39 - Request : DirectPaymentAPI.getToken(contract = 1234567 - cardNumber = 4970********2417)
+2016-06-01 11:45:39 - Response : code = 02500 - token = 
+2016-06-01 12:28:45 - ----------------------------------------------------------
+2016-06-01 12:28:45 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 12:28:46 - Request : DirectPaymentAPI.getToken(contract = 1234567 - cardNumber = 4970********2417)
+2016-06-01 12:28:46 - Response : code = 02500 - token = 
+2016-06-01 12:58:28 - ----------------------------------------------------------
+2016-06-01 12:58:28 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 12:58:29 - Request : WebPaymentAPI.doWebPayment(order.ref = PHP-1464785904)
+2016-06-01 12:58:29 - Response : code = 00000 - token = 2pQL9AFMo40Re0Kaf6041464785909110
+2016-06-01 12:59:38 - ----------------------------------------------------------
+2016-06-01 12:59:38 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 12:59:40 - Request : WebPaymentAPI.doWebPayment(order.ref = PHP-1464785904)
+2016-06-01 12:59:40 - Response : code = 00000 - token = 2DAlZPK6ihWvGDip15221464785978943
+2016-06-01 12:59:44 - ----------------------------------------------------------
+2016-06-01 12:59:44 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 12:59:44 - Request : WebPaymentAPI.doWebPayment(order.ref = PHP-1464785982)
+2016-06-01 12:59:44 - Response : code = 00000 - token = 2qWSEE7NmZvyhFNXS3091464785984650
+2016-06-01 13:25:49 - ----------------------------------------------------------
+2016-06-01 13:25:49 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 13:25:51 - Request : WebPaymentAPI.doWebPayment(order.ref = myOrderRef_35656)
+2016-06-01 13:25:51 - Response : code = 02305
+2016-06-01 13:29:28 - ----------------------------------------------------------
+2016-06-01 13:29:28 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 13:29:29 - Request : WebPaymentAPI.doWebPayment(order.ref = myOrderRef_35656)
+2016-06-01 13:29:29 - Response : code = 02305
+2016-06-01 13:30:10 - ----------------------------------------------------------
+2016-06-01 13:30:10 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 13:30:12 - Request : WebPaymentAPI.doWebPayment(order.ref = myOrderRef_35656)
+2016-06-01 13:30:12 - Response : code = 02305
+2016-06-01 13:33:22 - ----------------------------------------------------------
+2016-06-01 13:33:22 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 13:33:24 - Request : WebPaymentAPI.doWebPayment(order.ref = myOrderRef_35656)
+2016-06-01 13:33:24 - Response : code = 00000 - token = 2PXsAZp4byn1ZDN012731464788004337
+2016-06-01 13:40:47 - ----------------------------------------------------------
+2016-06-01 13:40:47 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 13:40:48 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 13:40:48 - Response : code = 00000 - transactionID = 26153154047578
+2016-06-01 13:40:48 - 
+2016-06-01 13:41:15 - ----------------------------------------------------------
+2016-06-01 13:41:15 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 13:41:16 - Request : DirectPaymentAPI.doCredit(contract = 1234567 - order.ref = PHP-1464788464 - card = 4970********4471)
+2016-06-01 13:41:16 - Response : code = 00000 - transactionID = 26153154116605
+2016-06-01 13:41:16 - 
+2016-06-01 14:50:03 - ----------------------------------------------------------
+2016-06-01 14:50:03 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 14:50:07 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 14:50:07 - Response : code = 02305 - transactionID = 
+2016-06-01 14:50:57 - ----------------------------------------------------------
+2016-06-01 14:50:57 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 14:51:00 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 14:51:00 - Response : code = 02305 - transactionID = 
+2016-06-01 14:51:39 - ----------------------------------------------------------
+2016-06-01 14:51:39 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 14:51:45 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 14:51:45 - Response : code = 02305 - transactionID = 
+2016-06-01 14:53:17 - ----------------------------------------------------------
+2016-06-01 14:53:17 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 14:53:19 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 14:53:19 - Response : code = 02305 - transactionID = 
+2016-06-01 14:55:25 - ----------------------------------------------------------
+2016-06-01 14:55:25 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 14:55:30 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 14:55:30 - Response : code = 02305 - transactionID = 
+2016-06-01 15:00:30 - ----------------------------------------------------------
+2016-06-01 15:00:30 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:00:31 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 15:00:31 - Response : code = 02305 - transactionID = 
+2016-06-01 15:01:26 - ----------------------------------------------------------
+2016-06-01 15:01:26 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:01:29 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 15:01:29 - Response : code = 02305 - transactionID = 
+2016-06-01 15:02:39 - ----------------------------------------------------------
+2016-06-01 15:02:39 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:02:42 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 15:02:42 - Response : code = 02305 - transactionID = 
+2016-06-01 15:20:30 - ----------------------------------------------------------
+2016-06-01 15:20:30 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:20:32 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 15:20:32 - Response : code = 02305 - transactionID = 
+2016-06-01 15:22:29 - ----------------------------------------------------------
+2016-06-01 15:22:29 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:22:31 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 15:22:31 - Response : code = 01904 - transactionID = PV401061614618408
+2016-06-01 15:22:31 - 
+2016-06-01 15:23:59 - ----------------------------------------------------------
+2016-06-01 15:23:59 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:24:00 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 1000)
+2016-06-01 15:24:00 - Response : code = 00000 - transactionID = 26153172400762
+2016-06-01 15:35:06 - ----------------------------------------------------------
+2016-06-01 15:35:06 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:35:09 - Request : DirectPaymentAPI.doAuthorization(contract = 1234567 - amount = 10000000)
+2016-06-01 15:35:09 - Response : code = 01110 - transactionID = 26153173507196
+2016-06-01 15:49:11 - ----------------------------------------------------------
+2016-06-01 15:49:11 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:49:12 - Request : DirectPaymentAPI.verifyAuthentication(contract =  - card = 4970********4471)
+2016-06-01 15:49:12 - Response : code = 02303
+2016-06-01 15:49:41 - ----------------------------------------------------------
+2016-06-01 15:49:41 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:49:42 - Request : DirectPaymentAPI.verifyAuthentication(contract = 1234567 - card = 4970********4471)
+2016-06-01 15:49:42 - Response : code = 02305
+2016-06-01 15:51:02 - ----------------------------------------------------------
+2016-06-01 15:51:02 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:51:03 - Request : DirectPaymentAPI.getBalance(contract = 1234567 - cardID = 4970********4471)
+2016-06-01 15:51:03 - Response : code = 02303
+2016-06-01 15:51:41 - ----------------------------------------------------------
+2016-06-01 15:51:41 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 15:51:41 - Request : DirectPaymentAPI.getBalance(contract = 1234567 - cardID = 4970********4471)
+2016-06-01 15:51:41 - Response : code = 02303
+2016-06-01 16:25:09 - ----------------------------------------------------------
+2016-06-01 16:25:09 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:25:09 - ----------------------------------------------------------
+2016-06-01 16:25:09 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:25:10 - Request : DirectPaymentAPI.createWallet(contract =  - walletId = 1 - card = )
+2016-06-01 16:25:10 - Response : code = 02532
+2016-06-01 16:28:31 - ----------------------------------------------------------
+2016-06-01 16:28:31 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:28:31 - ----------------------------------------------------------
+2016-06-01 16:28:31 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:28:32 - Request : DirectPaymentAPI.createWallet(contract =  - walletId = 1 - card = )
+2016-06-01 16:28:32 - Response : code = 02532
+2016-06-01 16:35:59 - ----------------------------------------------------------
+2016-06-01 16:35:59 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:36:01 - Request : DirectPaymentAPI.enableWallet(walletId = 1)
+2016-06-01 16:36:01 - Response : code = 02532
+2016-06-01 16:36:01 - ----------------------------------------------------------
+2016-06-01 16:36:01 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:36:02 - Request : DirectPaymentAPI.createWallet(contract =  - walletId = 1 - card = )
+2016-06-01 16:36:02 - Response : code = 02532
+2016-06-01 16:44:10 - ----------------------------------------------------------
+2016-06-01 16:44:10 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:44:12 - Request : DirectPaymentAPI.enableWallet(walletId = 1)
+2016-06-01 16:44:12 - Response : code = 02532
+2016-06-01 16:44:21 - ----------------------------------------------------------
+2016-06-01 16:44:21 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:44:22 - Request : DirectPaymentAPI.enableWallet(walletId = 1)
+2016-06-01 16:44:22 - Response : code = 02532
+2016-06-01 16:44:59 - ----------------------------------------------------------
+2016-06-01 16:44:59 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:45:01 - Request : WebPaymentAPI.manageWebWallet(contract = 1234567 - walletId = W_IzaBELLE_20110925)
+2016-06-01 16:45:01 - Response : code = 02532
+2016-06-01 16:55:49 - ----------------------------------------------------------
+2016-06-01 16:55:49 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:55:50 - Request : DirectPaymentAPI.enableWallet(walletId = 1)
+2016-06-01 16:55:50 - Response : code = 02532
+2016-06-01 16:55:50 - ----------------------------------------------------------
+2016-06-01 16:55:50 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:55:51 - Request : DirectPaymentAPI.createWallet(contract =  - walletId = 1 - card = )
+2016-06-01 16:55:51 - Response : code = 02532
+2016-06-01 16:58:00 - ----------------------------------------------------------
+2016-06-01 16:58:00 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:58:01 - Request : DirectPaymentAPI.enableWallet(walletId = 1)
+2016-06-01 16:58:01 - Response : code = 02532
+2016-06-01 16:58:55 - ----------------------------------------------------------
+2016-06-01 16:58:55 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:58:55 - Request : DirectPaymentAPI.enableWallet(walletId = 1)
+2016-06-01 16:58:55 - Response : code = 02532
+2016-06-01 16:59:06 - ----------------------------------------------------------
+2016-06-01 16:59:06 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 16:59:07 - Request : DirectPaymentAPI.disableWallet(contract = 1234567 - walletIdList = 1)
+2016-06-01 16:59:07 - Response : code = 02532
+2016-06-01 17:00:10 - ----------------------------------------------------------
+2016-06-01 17:00:10 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 17:00:11 - Request : DirectPaymentAPI.createWallet(contract = 1234567 - walletId = Wallet_kiz2ti - card = 4970********4471)
+2016-06-01 17:00:11 - Response : code = 02532
+2016-06-01 17:00:52 - ----------------------------------------------------------
+2016-06-01 17:00:52 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 17:00:54 - Request : WebPaymentAPI.createWebWallet(contract = 1234567 - walletId = W_JohnDOE_20090210)
+2016-06-01 17:00:54 - Response : code = 02532
+2016-06-01 17:01:48 - ----------------------------------------------------------
+2016-06-01 17:01:48 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 17:01:49 - Request : WebPaymentAPI.manageWebWallet(contract = 1234567 - walletId = W_JohnDOE_20090210)
+2016-06-01 17:01:49 - Response : code = 02532
+2016-06-01 17:27:32 - ----------------------------------------------------------
+2016-06-01 17:27:32 - paylineSDK::__construct(584120*******3, y****************EV3, , , , , HOMO)
+2016-06-01 17:27:34 - Request : DirectPaymentAPI.enableWallet(walletId = 1)
+2016-06-01 17:27:34 - Response : code = 02532

@@ -1,0 +1,24 @@
+# English, British translation of Search API ranges (7.x-1.5)
+# Copyright (c) 2014 by the English, British translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Search API ranges (7.x-1.5)\n"
+"POT-Creation-Date: 2014-05-28 01:41+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: English, British\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Prefix"
+msgstr "Prefix"
+msgid "Suffix"
+msgstr "Suffix"
+msgid "Search"
+msgstr "Search"
+msgid "Name"
+msgstr "Name"
+msgid "All"
+msgstr "All"

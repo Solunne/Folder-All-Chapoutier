@@ -1,0 +1,33 @@
+<?php
+
+function wassa_geolocation_schema() {
+    $schema['wassa_geolocation'] = array(
+        'description' => 'The base table for display geolocation redirection.',
+        'fields' => array(
+            'nid' => array(
+                'description' => 'The primary identifier for a geolocation redirection.',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE),
+            'country_code' => array(
+                'description' => 'The country code (ccTLDs ISO 3166-1)',
+                'type' => 'varchar',
+                'length' => 2,
+                'not null' => TRUE,
+                'default' => ''),
+            'redirect_url' => array(
+                'description' => 'The URL used to redirect users to the correct domain.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => ''),
+            ),
+        'unique keys' => array(
+            'nid' => array('nid'),
+            'country_code' => array('country_code')
+        ),
+        'primary keys' => array('nid'),
+    );
+
+     return $schema;
+ }

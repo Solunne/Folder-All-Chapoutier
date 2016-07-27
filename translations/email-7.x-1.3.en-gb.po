@@ -1,0 +1,24 @@
+# English, British translation of Email Field (7.x-1.3)
+# Copyright (c) 2015 by the English, British translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Email Field (7.x-1.3)\n"
+"POT-Creation-Date: 2015-03-11 10:33+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: English, British\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Subject"
+msgstr "Subject"
+msgid "mail"
+msgstr "mail"
+msgid "Email"
+msgstr "Email"
+msgid "Size of textfield"
+msgstr "Size of textfield"
+msgid "Text field"
+msgstr "Text field"

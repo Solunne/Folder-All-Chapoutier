@@ -1,0 +1,1201 @@
+.alert.alert-block.alert-success.messages.status {
+    background-image: none;
+    border: 0;
+    border-radius: 0;
+}
+
+
+.node-type-range .range-page{
+    padding: 0;
+}
+
+.node-type-range .page-header{
+    display: none;
+}
+
+.node-type-range .range-presentation {
+    padding: 0;
+    background-size: cover;
+    height: calc(100vh - 110px);
+    font-family: 'CenturySchoolbook-Regular';
+    color: #fff;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+
+.node-type-range h1.range-presentation-title {
+    text-transform: uppercase;
+    margin: 50px 0 10px 60px;
+    font-size: 28px;
+}
+
+.node-type-range h3.range-presentation-subtitle{
+    margin-left: 60px;
+    margin-top: 10px;
+}
+
+.node-type-range div.range-presentation-body{
+    margin-left: 60px;
+    width: 600px;
+    font-size: 17px;
+    margin-top: 30px;
+    /*
+max-height: 245px;
+    overflow: scroll;
+*/
+}
+
+#commerce-checkout-form-review #commerce-userpoints-discount{
+	display: none;
+}
+
+#user_register_form h1{
+	display: none;
+}
+
+.register-title{
+	font-family: 'CenturySchoolbook-Regular';
+}
+
+.node-type-range .range-presentation-go {
+    position: absolute;
+    bottom: 120px;
+    left: 60px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.node-type-range .range-presentation-goimg {
+    position: absolute;
+    bottom: 70px;
+    left: 80px;
+    font-size: 18px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background-image: url('../img/chapoutier_icones.svg');
+    background-size: 700px 700px;
+    background-position: -592px -120px;
+    background-repeat: no-repeat;
+}
+
+.node-type-house-chapoutier .btn_up{
+	position: absolute;
+	background-image: url('../img/chapoutier_icones.svg');
+	background-size: 700px;
+	background-position: -642px -117px;
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 50px;
+	left: calc(50% - 50px);
+	top: -70px;
+	text-indent: -9999px;
+	cursor: pointer;
+	-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+.node-type-house-chapoutier .slide-house:first-child .description .btn_up{
+	display: none;
+}
+
+.node-type-house-chapoutier .slide-house:last-child .description .btn_down{
+	display: none;
+}
+
+
+.node-type-house-chapoutier .btn_down{
+    position: absolute;
+	background-image: url('../img/chapoutier_icones.svg');
+	background-size: 700px;
+	background-position: -642px -117px;
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 50px;
+	left: calc(50% - 50px);
+	bottom: -70px;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.node-type-range .range-presentation-goimg a{
+	opacity: 0;
+}
+
+.node-type-range .range-presentation-go a{
+    font-family: 'BebasNeue-Regular';
+    color:#fff;
+    text-transform: uppercase;
+}
+
+.node-type-range .field-collection-container, .node-type-range .field-collection-view{
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.node-type-range .range-page .range-content{
+    background-size: cover;
+    height: calc(100vh - 110px);
+}
+
+.node-type-range .range-content .range-description{
+    color: #fff;
+    font-family: 'CenturySchoolbook-Regular';
+    padding: 0;
+    margin-top: 50px;
+}
+
+h2.range-content-title {
+    margin-bottom: 20px;
+}
+
+.node-type-range .range-content .item-slide-range {
+    position: absolute;
+    width: 100%;
+    visibility: hidden;
+    opacity:0;
+    -webkit-transition: opacity 0.5s ease-in-out;/* Chrome et Safari */
+    -moz-transition: opacity 0.5s ease-in-out;/* Firefox */
+    -o-transition: opacity 0.5s ease-in-out;/* Opéra */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.node-type-range .range-content .item-slide-range.active{
+    display: block;
+    opacity:1;
+    visibility: visible;
+}
+
+.node-type-range .range-content nav.list-range {
+    margin-top: 100px;
+    height: 200px;
+}
+
+ul.list-range-big {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.node-type-range .range-content nav.list-range .anchor-range a{
+    color: #fff;
+    font-family: 'CenturySchoolbook-Regular';
+    cursor: pointer
+}
+
+.node-type-range h1.range-content-title {
+    margin-bottom: 20px;
+}
+
+.node-type-range .range-content-wine-color {
+    font-size: 20px;
+    /*font-style: italic;*/
+}
+
+.node-type-range .range-content-location {
+    font-size: 18px;
+}
+
+.node-type-range .range-content-description {
+    font-size: 16px;
+    margin-top: 30px;
+    font-style: italic;
+/*
+	max-height: 200px;
+	overflow: scroll;
+*/
+}
+
+.node-type-range .range-content-aoc {
+    margin-top: 20px;
+	font-size: 20px;
+}
+
+.node-type-range li.anchor-range {
+    margin: 5px 0;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.node-type-range li.anchor-range:hover{
+	text-decoration: none;
+
+}
+
+.node-type-range .anchor-range a{
+    opacity: 0.3;
+    text-decoration: none;
+}
+
+.node-type-range .anchor-range a:hover{
+	text-decoration: none;
+	opacity: 1;
+}
+
+.node-type-range .anchor-range a.active{
+    opacity: 1;
+}
+
+.node-type-range .range-content-ref{
+    margin: 30px auto 0;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.node-type-range .range-content-ref a {
+        color: #fff;
+    font-family: 'BebasNeue-Regular';
+    text-transform: uppercase;
+    padding: 12px 20px 10px;
+    font-size: 20px;
+    border: 1px solid;
+}
+
+.node-type-range .glossary{
+   /*  overflow: scroll; */
+}
+
+.node-type-range .range-wine-pic img {
+    /*
+height: 70vh;
+    max-height: 70vh;
+    
+*/
+image-rendering: -moz-crisp-edges;
+   image-rendering: -moz-crisp-edges;
+   image-rendering: -o-crisp-edges;
+   image-rendering: -webkit-optimize-contrast;
+   -ms-interpolation-mode: nearest-neighbor;
+	max-height: 70vh;
+    width: auto;
+    margin-top: 5vh;
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    /* filter: url(#drop-shadow); */
+    -webkit-filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.5));
+    filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.5));
+}
+
+.list-range-small, .range-description-small{
+    display: none;
+}
+
+/* webform sur mesure */
+.container-surmesure {
+}
+.surmesure-title{
+    text-align: center;
+    font-family: 'CenturySchoolbook-Regular';
+}
+.surmesure-intro{
+    font-family: 'CenturySchoolbook-Regular';
+}
+
+.footer-surmesure{
+    font-size: 12px;
+    margin-bottom: 20px;
+    font-family: 'CenturySchoolbook-Regular';
+}
+
+.node-webform .webform-subtitle,
+.webform-component-textarea .control-label{
+    text-align: center;
+    font-family: 'BebasNeue-Regular';
+    font-size: 18px;
+    margin: 20px 0;
+    display: block;
+}
+
+.webform-component-file {
+    margin-bottom: 20px!important;
+}
+
+.container-webform {
+}
+
+.container-webform input{
+    margin: 15px 0;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-family: 'CenturySchoolbook-Regular';
+    font-style: italic;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    font-family: 'CenturySchoolbook-Regular';
+    font-style: italic;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    font-family: 'CenturySchoolbook-Regular';
+    font-style: italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+    font-family: 'CenturySchoolbook-Regular';
+    font-style: italic;
+}
+
+.webform-component--civility #edit-submitted-civility,
+.webform-component--country #edit-submitted-country,
+.webform-component-select #edit-submitted-object{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height:34px;
+    border:1px solid #d1d1d1;
+    background-color: #fff;
+    width:100%;
+    text-indent: 8px;
+    font-style: italic;
+    color: #959595;font-family: 'CenturySchoolbook-Regular';
+}
+
+.webform-component-select #edit-submitted-object{
+    margin: 15px 0;
+}
+
+.webform-component-file .description a{
+    display: inline-block!important;
+}
+
+.webform-client-form .form-actions .form-submit{
+    display: block;
+    margin: 20px auto;
+}
+
+.submit-form button{
+    background-color: #000;
+    background-image: none;
+    color: #c1d82f;
+    text-transform: uppercase;
+    border-radius: 0;
+    font-family: 'BebasNeue-Regular';
+    font-size: 18px;
+}
+
+.node-type-webform .page-header{
+    display: none;
+}
+
+/* MEGA MENU */
+.mega_menu {
+    /* display: block; */
+    visibility: hidden;
+	opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+	border: 1px solid #a4a3a4;
+    box-shadow: 0 3px 3px 0 rgba(41,43,45,.2);
+    background-color: #fff;
+    top: 66px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 1010;
+}
+.row-megamenu {
+    /* margin: 15px; */
+}
+.visiblepanel{
+    /*display: none;*/
+}
+.mega_menu .panel-separator{
+    display: none;
+}
+.mega_menu .panel-pane.pane-block {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    width: 150px;
+}
+.mega_menu .pane-title{
+    font-family: 'BebasNeue-Regular';
+    font-size: 18px;
+}
+.mega_menu .pane-content ul li a, .mega_menu .pane-content ul li span{
+    color: #000;
+    font-family: 'CenturySchoolbook-Regular';
+    padding: 2px 0;
+    font-size: 14px;
+}
+.inside.panels-flexible-region-inside.panels-flexible-region-1-center-inside.panels-flexible-region-inside-first.panels-flexible-region-inside-last {
+    display: flex;
+    flex-direction: initial;
+}
+
+/* ECRASEMENT SEB */
+body.node-type-house-chapoutier #slide0 .description p {
+    font-size: 17px;
+}
+body.node-type-house-chapoutier .description p {
+    font-size: 17px;
+}
+
+body.node-type-house-chapoutier .description h2.title-section {
+    font-size: 26px;
+    padding-bottom: 60px;
+}
+body.node-type-house-chapoutier .description h3.subtitle-section {
+    font-size: 16px;
+    margin-top: 0;
+}
+.footer .newsletter h3 {
+    font-size: 1.2em;
+}
+.footer .social h3 {
+    font-size: 1.2em;
+}
+.btn-default {
+    font-size: 1.2em;
+}
+.footer .newsletter .btn-default {
+    padding: 4px 12px 3px;
+}
+
+.footer .menu-footer ul li:first-child{
+	text-decoration: underline
+}
+.footer .menu-footer ul#menu-menu-footer li a:after {
+    content: '';
+}
+.footer .menu-footer ul#menu-menu-footer li {
+    padding: 0px;
+    display: initial;
+}
+.footer .menu-footer p.address {
+    font-size: 12px;
+    padding-top: 0px;
+        padding-bottom: 1%;
+}
+.footer .menu-footer ul#menu-menu-footer{
+	    padding: 1% 0 0.5%;
+}
+.footer .alcool p {
+    font-size: 12px;
+}
+
+/*
+#page-content-wrapper .navbar-header ul.dropdown-menu {
+    opacity: 1;
+}
+*/
+
+#sidebar-wrapper ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block !important;
+    padding: 0;
+}
+
+header .navbar-header {
+    padding-top: 40px;
+}
+
+.branding {
+    height: 110px;
+    line-height: 110px;
+    padding: 0;
+}
+a.site-title.logo {
+    margin: 0;
+    padding: 0;
+}
+
+#page-content-wrapper .navbar-header ul.dropdown-menu.active {
+    display: inherit;
+    opacity: inherit;
+}
+#page-content-wrapper .navbar-header ul.dropdown-menu {
+    opacity: inherit;
+}
+
+#page-content-wrapper .navbar-header ul.dropdown-menu.strong-active{
+	display: block;
+}
+
+.vjs-big-play-button{
+	width: 60px !important;
+	height: 60px !important;
+	left: 80%!important;
+	top: 5% !important;
+}
+
+/*
+.vjs-big-play-button {
+    width: 60px !important;
+    height: 60px !important;
+    left: 60%!important;
+    top: 36% !important;
+}
+*/
+
+/*
+.video-js .vjs-big-play-button:before {
+    content: ''!important;
+    background: url(../img/chapoutier_icones.svg) -448px -34px no-repeat;
+    background-size: 500px;
+    width: 60px!important;
+    height: 60px!important;
+    display: block;
+    vertical-align: -14%;
+    margin: 0 auto;
+}
+*/
+
+/* DESIGN CHECKOUT PAGES */
+
+#commerce-checkout-form-checkout .commerce_coupon .panel-body{
+    display: flex;
+    flex-direction: row;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+
+#edit-commerce-coupon .form-item-commerce-coupon-coupon-code {
+    margin-bottom: 0!important;
+}
+
+#edit-checkout-review table.checkout-review{
+    margin-bottom: 0;
+}
+
+.page-checkout section .panel-heading{
+    background-image: none;
+    background-color: #d0dc3e;
+    border-radius: 0;
+    padding: 5px 15px;
+}
+
+.page-checkout section .panel-heading .panel-title{
+	color:#fff;
+	font-family: 'BebasNeue-Regular';	
+    font-size: 16px;
+}
+
+.page-checkout section fieldset{
+	border-radius: 0;
+	border:none;
+}
+
+#edit-commerce-payment #edit-commerce-payment-payment-method{
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) { /* Phone */
+    #edit-commerce-payment .panel-body{
+        display: flex;
+    }
+    #edit-commerce-payment #edit-commerce-payment-payment-method{
+        margin-right: 100px;
+        margin-bottom: 0;
+    }
+}
+
+.view-booking-checkout-form thead th{
+	background-color: #d1d1d1;	
+}
+
+.view-booking-checkout-form tbody tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+ol.inline.commerce-checkout-progress li {
+    display: inherit;
+    font-family: 'BebasNeue-Regular';
+    color: #d1d1d1;
+    width: calc(100% / 6);
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 2px solid #d0dc3e;
+    height: 50px;
+    line-height: 50px;
+}
+
+ol.inline.commerce-checkout-progress li.active{
+	border: 2px solid #d0dc3e;
+	color: #d0dc3e;
+}
+
+ol.commerce-checkout-progress{
+	padding: 0;
+}
+
+fieldset#edit-buttons {
+    text-align: right;
+}
+button#edit-continue {
+    float: right;
+    margin-left: 50px;
+}
+button#edit-continue:hover{
+	border: inherit !important;
+}
+span.button-operator{display: none;}
+button.btn-success.form-submit{
+    background: #000;
+    border-radius: 0;
+    border: none;
+    color: #c1d82f;
+    font-family: 'BebasNeue-bold';
+    font-size: 16px;
+    text-shadow: none;
+}
+
+.form-item.form-item-commerce-coupon-coupon-code.form-type-textfield.form-group {
+    width: 80%;
+    margin: 0;
+    float: left;
+}
+
+#commerce-checkout-coupon-ajax-wrapper button.btn-success.form-submit{
+	margin-top: 25px;
+    margin-left: 25px;
+}
+
+.checkout_review .pane-title{
+    background-color: #d0dc3e !important;
+    color: #fff;
+    font-family: 'BebasNeue-bold';
+    text-transform: uppercase;
+}
+
+.checkout_review .pane-title td{
+	font-size: 16px;
+}
+
+/*-------------------------------------*/
+/*-----------checkout complete---------*/
+/*-------------------------------------*/
+
+body.page-checkout-complete h1{
+    padding: 20px 0;
+    font-family: 'CenturySchoolbook-Regular';
+    font-size: 1.8em;
+    border: none!important;
+}
+
+body.page-checkout-complete #commerce-checkout-form-complete{
+    margin-bottom: 10px;
+}
+
+body.page-checkout-complete .payment-method p{
+    margin-bottom: 10px;
+    font-family: 'CenturySchoolbook-Regular';
+    font-size:14px;
+}
+
+.share-last-order .text-header{
+	    color: #fff;
+    background-color: #000;
+    margin: 20px 0;
+    text-align: center;
+}
+.share-last-order .text-header h3{
+	    font-size: 18px;
+    margin: 0;
+    text-transform: uppercase;
+    padding: 10px;
+    font-family: 'BebasNeue-regular';
+}
+
+.tabs-share-last-order #tab_product_recommender li.active{
+    border-bottom: 2px solid #d0dd28;
+}
+
+.share-last-order .tabs-share-last-order a{
+	border: none !important;
+	font-family: 'CenturySchoolbook-Regular';
+}
+
+#product_recommender .img-product a.link-product img{
+	margin: 0 auto 20px;
+}
+
+#product_recommender .description h3,
+#product_recommender .description h3 a{
+	font-size: 16px;
+	font-family: 'CenturySchoolbook-bold';
+    margin-top: 0;
+    color: #000;
+}
+
+#product_recommender .description ul{
+    font-size: 12px;
+    font-family: 'CenturySchoolbook-regular';
+}
+
+#product_recommender .description .share{
+    margin: 20px 0;
+}
+
+#product_recommender .description a.twitter{
+    display: inline-block;
+    width: 30px;
+    height: 25px;
+    background: url(../img/chapoutier_icones.svg) -294px -93px no-repeat;
+    background-size: 500px;
+    white-space: nowrap;
+    text-indent:-9999px;
+}
+
+#product_recommender .description a.facebook{
+    display: inline-block;
+    width: 30px;
+    height: 25px;
+    background: url(../img/chapoutier_icones.svg) -211px -93px no-repeat;
+    background-size: 500px;
+    white-space: nowrap;
+    text-indent:-9999px;
+}
+
+.share-last-order{
+	margin-bottom: 20px;
+}
+
+/* PAGE OFFRES RH */
+.offre_page{margin-bottom: 30px;}
+.offre_page .title_offre{
+	font-family: 'BebasNeue-bold';
+	color: #d0dc3e;
+	text-transform: uppercase;
+}
+.offre_page .description_offre{
+	margin: 20px 0;
+}
+
+.offre_page .link_offre a{
+	font-family: 'BebasNeue-bold';
+    text-transform: uppercase;
+    background: #000;
+    color: #c1d82f;
+    border-radius: 0;
+    padding: 10px 20px 8px;
+    font-size: 18px;
+}
+
+.page-rh .title-page-rh{
+	font-family: 'BebasNeue-bold' !important;
+	color: #d0dc3e;
+	text-transform: uppercase;
+	text-align: center;
+}
+.page-rh .container-rh{
+	/* background-image: url('../img/ressources-humaines.jpg'); */
+	/* width: 912px; */
+	/* height: 368px; */
+	margin: 0 auto;
+}
+
+.page-rh .container-rh .container-block-rh {
+    /* width: 912px; */
+    /*
+position: absolute;
+    bottom: 0;
+*/
+}
+
+.page-rh .container-rh .block-rh {
+    /* width: calc(100% / 3); */
+    /* float: left; */
+	padding: 15px 0 20px;
+    text-align: center;
+        /* margin: 0 5px; */
+    margin-bottom: 20px;
+}
+.page-rh .container-rh .block-rh-content{
+	position: absolute;
+	bottom: 0px;
+	height: 80px;
+}
+.page-rh .container-rh .block-rh-emploi{
+	background: url('../img/rh-emploi.jpg') no-repeat;
+	background-size: cover;
+	/* background-position: 100% 96%; */
+	height: 350px;
+}
+.page-rh .container-rh .block-rh-stage{
+	background: url('../img/rh-stage.jpg') no-repeat;
+	background-size: cover;
+	/* background-position: 100% 96%; */
+	height: 350px;
+}
+.page-rh .container-rh .block-rh-candidature{
+	background: url('../img/rh-candidature.jpg') no-repeat;
+	background-size: cover;
+	/* background-position: 100% 96%; */
+	height: 350px;
+}
+.page-rh .container-rh .rh-opacity {
+    height: 80px;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0.8;
+    bottom: 0;
+    position: absolute;
+}
+.page-rh .container-rh .block-rh .title-rh{
+	font-family: 'BebasNeue-bold' !important;
+	    font-size: 24px;
+}
+.page-rh .container-rh .block-rh .linkto-rh{
+	/* margin-top: 10px; */
+	height: 40px;
+    line-height: 42px;
+    background: #000;
+	cursor: pointer
+}
+.page-rh .container-rh .block-rh .linkto-rh a{
+	font-family: 'BebasNeue-bold';
+	text-transform: uppercase;
+	/* background: #000; */
+	color: #c1d82f;
+	border-radius: 0;
+	/* padding: 10px 20px 8px; */
+	font-size: 18px;
+}
+
+header nav ul.navbar-nav li a.shop {
+    padding: 5px 12px 0;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	.glossary{
+		display: none;
+	}
+    .node-type-range .range-presentation{
+        background-position: 74% 100%;
+        height: calc(100vh - 45px);
+    }
+    .node-type-range div.range-presentation-body,.node-type-range h1.range-presentation-title,.node-type-range h3.range-presentation-subtitle{
+        width: 600px;
+        margin: 0 auto;
+    }
+    .node-type-range h1.range-presentation-title{
+        margin-top: 20px;
+        font-size: 24px;
+    }
+    .node-type-range h3.range-presentation-subtitle{
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    .node-type-range div.range-presentation-body{
+        margin-top: 20px;
+        font-size: 16px;
+        max-height: 300px;
+	    overflow: auto;
+    }
+    .node-type-range .range-content nav.list-range{
+        margin-top: inherit;
+        height: inherit;
+    }
+    .node-type-range .range-presentation-go {
+		position: absolute;
+		bottom: 80px;
+	    left: calc(50% - 40px);
+		font-size: 18px;
+		text-align: center;
+	}
+	.node-type-range .range-presentation-goimg{
+		left: calc(50% - 25px);
+		bottom: 40px;
+	}
+    .node-type-range .range-content{
+        background-position: right;
+    }
+    .node-type-range .range-description{
+        height: 98vh;
+    }
+    .container-range-content-description {
+        z-index: 3;
+        position: relative;
+        background-color: #fff;
+        width: 80vw;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    .node-type-range .range-content-description{
+        z-index: 3;
+        position: relative;
+        background-color: #fff;
+        margin: 0 auto;
+        /*
+max-height: 76px;
+        height: 76px;
+*/
+        overflow: scroll;
+        font-size: 13px;
+        padding: 10px;
+        border: 1px solid grey;
+        font-style: italic;
+        font-family: 'CenturySchoolbook-Regular';
+    }
+    .node-type-range .range-wine-pic img {
+            margin: 0 auto;
+    max-height: 60vh;
+    height: inherit;
+    }
+    .node-type-range .range-page .range-content {
+        background-size: cover;
+        height: calc(108vh - 45px);
+	    background-position: 100% -110px;
+    }
+
+    .node-type-range h1.range-content-title {
+        margin-bottom: 10px;
+        margin-top: 0;
+        margin-left: 20px;
+        display: none;
+    }
+    .node-type-range .range-content-aoc,.node-type-range .range-content-location{
+        margin-left: 20px;
+        color: #fff;
+    }
+    .node-type-range .range-content-aoc{
+        text-transform: uppercase;
+        margin-top: 10px;
+        font-family: 'CenturySchoolbook-Regular';
+        font-size: 14px;
+    }
+    .node-type-range .range-content-wine-color{
+        font-size: 12px;
+        font-family: 'CenturySchoolbook-Regular';
+        color: #fff;
+    }
+    .range-description-aoc-color{
+        margin-top: 10px;
+    }
+    .range-content-location{
+        font-size: 10px;
+        font-family: 'CenturySchoolbook-Regular';
+    }
+    .node-type-range .range-content-ref {
+        width: 100%;
+        height: 150px;
+        text-align: center;
+        margin: 0;
+        line-height: 200px;
+        position: absolute;
+		bottom: -110px;
+        z-index: 2;
+        /* background-color: #b287a8; */
+    }
+
+    .list-range-small{
+        display: block;
+        font-size: 18px;
+        font-family: 'CenturySchoolbook-Regular';
+        margin-top: 15px;
+        color: #fff;
+        border-bottom: 1px solid #fff;
+    }
+
+    .list-range-small select{
+        text-transform: uppercase;	
+		width: 100%;
+		background-color: transparent;
+		border: none;
+		font-size: 14px;
+    }
+
+    .list-range-big, .range-description-big{
+        display: none;
+    }
+
+    .range-description-small{
+        display: block;
+	    height: calc(100vh - 156px);
+    }
+    
+    .node-type-house-chapoutier .btn_up, .node-type-house-chapoutier .btn_down{
+	    display: none;
+    }
+}
+
+@media (max-width: 767px){
+	.glossary{
+		display: none;
+	}
+    .node-type-range .range-presentation{
+        background-position: 74% 100%;
+        height: calc(100vh - 45px);
+    }
+    .node-type-range div.range-presentation-body,.node-type-range h1.range-presentation-title,.node-type-range h3.range-presentation-subtitle{
+        /*
+width: 300px;
+        margin: 0 auto;
+*/
+	    width: 80vw;
+	    margin: 0 0 0 5vw;
+    }
+    .node-type-range h1.range-presentation-title{
+        margin-top: 25px;
+    font-size: 22px;
+    margin-bottom: 15px;
+    }
+    .node-type-range h3.range-presentation-subtitle{
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    .node-type-range div.range-presentation-body{
+        margin-top: 20px;
+        font-size: 14px;
+    max-height: 280px;
+	    overflow: auto;
+    }
+    .node-type-range .range-content nav.list-range{
+        margin-top: inherit;
+        height: inherit;
+    }
+    .node-type-range .range-presentation-go {
+		position: absolute;
+		bottom: 50px;
+	    left: calc(50% - 40px);
+		font-size: 18px;
+		text-align: center;
+	}
+	.node-type-range .range-presentation-goimg{
+		left: calc(50% - 25px);
+		bottom: 10px;
+	}
+    .node-type-range .range-content{
+        background-position: right;
+    }
+    .node-type-range .range-description{
+        height: 98vh;
+    }
+    .container-range-content-description {
+        z-index: 3;
+        position: relative;
+        background-color: #fff;
+        width: 80vw;
+		margin: 10px auto 0;
+        padding: 10px;
+    }
+    .node-type-range .range-content-description{
+        z-index: 3;
+        position: relative;
+        background-color: #fff;
+        margin: 0 auto;
+        max-height: 100px;
+        height: 100px;
+        overflow: scroll;
+        font-size: 14px;
+        padding: 10px;
+        border: 1px solid #d1d1d1;
+        font-style: italic;
+        font-family: 'CenturySchoolbook-Regular';
+    }
+    .node-type-range .range-wine-pic img {
+            margin: 0 auto;
+    max-height: 50vh;
+    height: inherit;
+    }
+    .node-type-range .range-page .range-content {
+        background-size: cover;
+        height: calc(108vh - 45px);
+	    background-position: 100% 100%;
+    }
+
+    .node-type-range h1.range-content-title {
+        margin-bottom: 10px;
+        margin-top: 0;
+        margin-left: 20px;
+        display: none;
+    }
+    .node-type-range .range-content-aoc,.node-type-range .range-content-location{
+        margin-left: 20px;
+        color: #fff;
+    }
+    .node-type-range .range-content-aoc{
+        text-transform: uppercase;
+        margin-top: 10px;
+        font-family: 'CenturySchoolbook-Regular';
+        font-size: 14px;
+    }
+    .node-type-range .range-content-wine-color{
+        font-size: 12px;
+        font-family: 'CenturySchoolbook-Regular';
+        color: #fff;
+    }
+    .range-description-aoc-color{
+        margin-top: 10px;
+    }
+    .range-content-location{
+        font-size: 10px;
+        font-family: 'CenturySchoolbook-Regular';
+    }
+    .node-type-range .range-content-ref {
+        width: 100%;
+        /* height: 150px; */
+        text-align: center;
+        margin: 0;
+        /* line-height: 200px; */
+        /* position: absolute; */
+		bottom: -110px;
+        z-index: 2;
+        /* background-color: #b287a8; */
+    }
+
+    .list-range-small{
+        display: block;
+        font-size: 18px;
+        font-family: 'CenturySchoolbook-Regular';
+        margin-top: 15px;
+        color: #fff;
+        border-bottom: 1px solid #fff;
+    }
+
+    .list-range-small select{
+        text-transform: uppercase;	
+		width: 100%;
+		background-color: transparent;
+		border: none;
+		font-size: 14px;
+    }
+
+    .list-range-big, .range-description-big{
+        display: none;
+    }
+
+    .range-description-small{
+        display: block;
+	    height: calc(100vh - 156px);
+    }
+    
+    .node-type-house-chapoutier .btn_up, .node-type-house-chapoutier .btn_down{
+	    display: none;
+    }
+    .footer .menu-footer ul#menu-menu-footer li {
+	    padding: 7px;
+	    display: inherit;
+	}
+	.footer .menu-footer p.address {
+		padding-top: 10px;
+    }
+    .footer .alcool p {
+    	margin: 0 10px;
+	}
+	.footer .newsletter h3 {
+	    margin-top: 15px;
+	}
+	
+	a.site-title {
+    display: block;
+    width: 100%;
+    height: 50px;
+    background: url(../img/logo_chapoutier_mobile.svg) 15px 18px no-repeat;
+    background-size: 140px;
+    text-indent: -9999px;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 5px;
+    padding: 0!important;
+}
+
+}
+

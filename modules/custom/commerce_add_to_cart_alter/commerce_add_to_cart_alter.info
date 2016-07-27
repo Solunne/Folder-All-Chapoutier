@@ -1,0 +1,7 @@
+name = Commerce add to cart confirmation (bootstrap modal)
+description = Provides bootstrap modal implementation for cart confirmation.
+core = 7.x
+package = Commerce (contrib)
+dependencies[] = commerce_add_to_cart_confirmation
+scripts[] = js/commerce_add_to_cart_alter.js
+

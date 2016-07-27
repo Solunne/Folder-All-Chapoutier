@@ -1,0 +1,44 @@
+name = Bootstrap Sub-Theme Chapoutier
+description = Thème pour le site Chapoutier.
+core = 7.x
+base theme = bootstrap
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Regions
+;;;;;;;;;;;;;;;;;;;;;
+
+regions[header]         = 'Header'
+regions[cart]           = 'Cart'
+regions[search]         = 'Search'
+regions[content]        = 'Content'
+regions[footer]         = 'Footer'
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+stylesheets[all][] = css/style.css
+stylesheets[all][] = css/custom-bootstrap.css
+stylesheets[all][] = css/font.css
+stylesheets[all][] = css/video-js.css
+stylesheets[all][] = css/simple-sidebar.css
+stylesheets[all][] = css/style-matt.css
+stylesheets[all][] = css/style-ade.css
+stylesheets[all][] = css/jquery.mCustomScrollbar.css
+
+;Panel Layouts
+plugins[panels][layouts] = layouts
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Javascripts
+;;;;;;;;;;;;;;;;;;;;;
+
+scripts[] = js/jquery-ui.min.js
+scripts[] = ../../libraries/jstorage/jstorage.min.js
+scripts[] = js/main.js
+scripts[] = js/cookies.min.js
+scripts[] = js/video.js
+scripts[] = js/readmore.js
+scripts[] = js/jquery.mCustomScrollbar.concat.min.js

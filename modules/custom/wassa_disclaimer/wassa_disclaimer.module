@@ -1,0 +1,333 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+function wassa_disclaimer_menu() {
+    $items = array();
+
+    $items['admin/config/wassa'] = array(
+        'title' => 'Wassa',
+        'description' => 'Wassa tools.',
+        'position' => 'left',
+        'page callback' => 'system_admin_menu_block_page',
+        'access arguments' => array('access administration pages'),
+        'file' => 'system.admin.inc',
+    );
+    $items['admin/config/wassa/disclaimer'] = array(
+        'title' => 'List disclaimer',
+        'description' => 'Configuration for Wassa Disclaimer module',
+        'page callback' => 'wassa_disclaimer_page',
+        'access arguments' => array('access administration pages'),
+    );
+    $items['ws/wassa/disclaimer/json'] = array(
+        'page callback' => 'wassa_disclaimer_json',
+        'access arguments' => array('access content'),
+    );
+    $items['admin/config/wassa/disclaimer/add'] = array(
+        'title' => 'Add a disclaimer',
+        'description' => 'Configuration for Wassa Disclaimer module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('wassa_disclaimer_form'),
+        'access arguments' => array('access administration pages'),
+    );
+    $items['admin/config/wassa/disclaimer/%wassa_disclaimer/edit'] = array(
+        'title' => 'Edit a disclaimer',
+        'description' => 'Configuration for Wassa Disclaimer module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('wassa_disclaimer_form', 4),
+        'access arguments' => array('access administration pages'),
+    );
+    $items['admin/config/wassa/disclaimer/%wassa_disclaimer/delete'] = array(
+        'title' => 'Delete a disclaimer',
+        'description' => 'Configuration for Wassa Disclaimer module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('wassa_disclaimer_delete_form', 4),
+        'access arguments' => array('access administration pages'),
+    );
+
+    return $items;
+}
+
+/**
+ * Custom content function.
+ *
+ *
+ * @return
+ */
+function wassa_disclaimer_contents() {
+    //Use Database API to retrieve disclaimer.
+    $query = db_select('wassa_disclaimer', 'wd')
+        ->fields('wd', array('nid', 'language_code', 'display_mode', 'redirect_url'))
+        ->orderBy('language_code', 'ASC')
+        ->execute();
+    return $query->fetchAllAssoc('nid', PDO::FETCH_ASSOC);
+}
+
+function wassa_disclaimer_load($nid) {
+    return db_query("SELECT * FROM {wassa_disclaimer} WHERE nid = :nid", array(':nid' => $nid))->fetchObject();
+}
+
+/**
+ * Custom page callback function, declared in wassa_disclaimer_menu().
+ */
+function wassa_disclaimer_page() {
+    $headers = array(t("Id"), t("Language code"), t("Display mode"), t("Redirect URL"), t('Actions'));
+    $results = wassa_disclaimer_contents();
+
+    $rows = array();
+    foreach ($results as $result) {
+        array_push($result, l(t('Edit'), 'admin/config/wassa/disclaimer/'. $result['nid'] .'/edit') .' | ' . l(t('Delete'), 'admin/config/wassa/disclaimer/'. $result['nid'] .'/delete'));
+        $rows[] = $result;
+    }
+
+
+    $page_array = array();
+    $page_array['wassa_disclaimer_actions'] = array(
+        '#prefix' => '<ul class="action-links">',
+        '#markup' => '<li>' . l(t('Add a disclaimer'), 'admin/config/wassa/disclaimer/add') . '</li>',
+        '#suffix' => '</ul>',
+    );
+
+    $page_array['wassa_disclaimer_arguments'] = array(
+        '#theme' => 'table',
+        '#header' => $headers,
+        '#rows' => $rows,
+        '#empty' => 'No disclaimer, add a new one.'
+    );
+
+    return $page_array;
+}
+
+
+function wassa_disclaimer_json() {
+    global $language;
+    $locale = $language->language;
+    $query = db_select('wassa_disclaimer', 'wd')
+        ->fields('wd')
+        ->condition('language_code', $locale)
+        ->execute();
+
+    return drupal_json_output($query->fetchAssoc());
+}
+
+/**
+ * Page callback: Wassa disclaimer settings
+ *
+ * @see wassa_disclaimer_menu()
+ */
+function wassa_disclaimer_form($form, &$form_state, $disclaimer = NULL) {
+    if (is_null($disclaimer)) {
+        $disclaimer = new stdClass();
+        $disclaimer->nid = FALSE;
+        $disclaimer->language_code = '';
+        $disclaimer->message = '';
+        $disclaimer->display_mode = '';
+        $disclaimer->redirect_url = '';
+        $disclaimer->legal_age = '';
+        $disclaimer->yes_text = '';
+        $disclaimer->no_text = '';
+        $disclaimer->submit_text = '';
+    }
+
+    $form['wassa_disclaimer'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Edit disclaimer'),
+        '#weight' => -10,
+        '#collapsible' => FALSE,
+        '#collapsed' => FALSE,
+    );
+
+    $form['wassa_disclaimer']['#item'] = $disclaimer;
+    $form['wassa_disclaimer']['language_code'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Language code'),
+        '#description' => t('Locale code (ex: "en", "fr", "au", etc...).'),
+        '#size' => 7,
+        '#maxlength' => 7,
+        '#default_value' => $disclaimer->language_code,
+        '#required' => TRUE,
+    );
+    $form['wassa_disclaimer']['message'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Message'),
+        '#description' => t('Will be the message displayed to the user to prevent him of the terms of use.'),
+        '#default_value' => $disclaimer->message,
+        '#required' => TRUE,
+    );
+    $form['wassa_disclaimer']['display_mode'] = array(
+        '#type' => 'select',
+        '#title' => t('Display mode'),
+        '#description' => t('Mode used to display the validation method.'),
+        '#options' => array(
+            'buttons' => t('Yes/No buttons'),
+            'birthselect' => t('Birthday date selection'),
+        ),
+        '#default_value' => $disclaimer->display_mode,
+        '#required' => TRUE,
+    );
+    $form['wassa_disclaimer']['redirect_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('URL redirect'),
+        '#description' => t('URL used to redirect the user if is not corresponding with the terms of use (ex: "terms-of-use", "terms/use").'),
+        '#size' => 60,
+        '#maxlength' => 255,
+        '#default_value' => $disclaimer->redirect_url,
+        '#required' => TRUE,
+    );
+    $form['wassa_disclaimer']['legal_age'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Legal age'),
+        '#description' => t('Define the legal age to access to the site content (only use if the "birthday date selection" display mode is selected).'),
+        '#size' => 2,
+        '#maxlength' => 2,
+        '#default_value' => $disclaimer->legal_age,
+        '#required' => TRUE,
+    );
+    $form['wassa_disclaimer']['yes_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Yes text'),
+        '#description' => t('Text displayed for the "Yes" button with the "Yes/No buttons" display mode.'),
+        '#size' => 60,
+        '#maxlength' => 255,
+        '#default_value' => $disclaimer->yes_text,
+        '#required' => FALSE,
+    );
+    $form['wassa_disclaimer']['no_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('No text'),
+        '#description' => t('Text displayed for the "No" button with the "Yes/No buttons" display mode.'),
+        '#size' => 60,
+        '#maxlength' => 255,
+        '#default_value' => $disclaimer->no_text,
+        '#required' => FALSE,
+    );
+    $form['wassa_disclaimer']['submit_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Submit text'),
+        '#description' => t('Text displayed for the "Submit" button with "Birth date selection" display mode.'),
+        '#size' => 60,
+        '#maxlength' => 255,
+        '#default_value' => $disclaimer->submit_text,
+        '#required' => FALSE,
+    );
+
+    // Add buttons.
+    $form['actions'] = array('#type' => 'actions');
+    $form['actions']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save'),
+    );
+    // Add delete button only when we are editing a disclaimer.
+    if (isset($disclaimer->nid) && $disclaimer->nid) {
+        $form['actions']['delete'] = array(
+//            '#type' => 'button',
+//            '#value' => t('Delete'),
+            '#markup' => l(t('Delete'), 'admin/config/wassa/disclaimer/' . $disclaimer->nid . '/delete')
+        );
+    }
+    $form['actions']['cancel'] = array(
+        '#markup' => l(t('Cancel'), 'admin/config/wassa/disclaimer'),
+    );
+
+    $form['display_mode']['#attached']['js'][] = array(
+        'data' => drupal_get_path('module', 'wassa_disclaimer') . '/js/admin.form.js',
+        'type' => 'file'
+    );
+
+
+    return $form;
+}
+
+/**
+ * Implements validation from the Form API.
+ *
+ * @param $form
+ *   A structured array containing the elements and properties of the form.
+ * @param $form_state
+ *   An array that stores information about the form's current state
+ *   during processing.
+ */
+function wassa_disclaimer_form_validate($form, &$form_state){
+    $language_code = $form_state['values']['language_code'];
+    if (is_numeric($language_code)){
+        form_set_error('language_code', t('Numbers are not allowed in the language code.'));
+    }
+
+    $legal_age = $form_state['values']['legal_age'];
+    if (!is_numeric($legal_age)){
+        form_set_error('legal_age', t('You must enter a number for the legal age.'));
+    }
+    elseif ($legal_age < 18 ){
+        form_set_error('legal_age', t('The legal age cannot be under 18 years old.'));
+    }
+}
+
+/**
+ * Save configuration settings for wassa_disclaimer module.
+ */
+function wassa_disclaimer_form_submit($form, &$form_state) {
+    $disclaimer = $form['wassa_disclaimer']['#item'];
+
+    if (isset($disclaimer->nid) && $disclaimer->nid) {
+        db_update('wassa_disclaimer') // Table name no longer needs {}
+        ->fields(array(
+            'language_code' => $form_state['values']['language_code'],
+            'message' => $form_state['values']['message'],
+            'display_mode' => $form_state['values']['display_mode'],
+            'redirect_url' => $form_state['values']['redirect_url'],
+            'legal_age' => $form_state['values']['legal_age'],
+            'yes_text' => $form_state['values']['yes_text'],
+            'no_text' => $form_state['values']['no_text'],
+            'submit_text' => $form_state['values']['submit_text'],
+        ))
+        ->condition('nid', $form_state['build_info']['args'][0]->nid)
+        ->execute();
+    } else {
+        db_insert('wassa_disclaimer') // Table name no longer needs {}
+        ->fields(array(
+            'language_code' => $form_state['values']['language_code'],
+            'message' => $form_state['values']['message'],
+            'display_mode' => $form_state['values']['display_mode'],
+            'redirect_url' => $form_state['values']['redirect_url'],
+            'legal_age' => $form_state['values']['legal_age'],
+            'yes_text' => $form_state['values']['yes_text'],
+            'no_text' => $form_state['values']['no_text'],
+            'submit_text' => $form_state['values']['submit_text'],
+        ))
+        ->execute();
+    }
+    $form_state['redirect'] = 'admin/config/wassa/disclaimer';
+}
+
+function wassa_disclaimer_delete_form($form, &$form_state, $disclaimer)
+{
+    $form['#item'] = $disclaimer;
+
+    $form['header'] = array(
+        '#markup' => t('Are you sure you wish to delete the disclaimer with a language code of "@value" ?', array('@value' => $disclaimer->language_code)),
+        '#prefix' => '',
+        '#suffix' => '',
+    );
+
+    $form['actions'] = array('#type' => 'actions');
+    $form['actions']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Delete'),
+    );
+    $form['actions']['cancel'] = array(
+        '#markup' => l(t('Cancel'), 'admin/config/wassa/disclaimer'),
+    );
+    return $form;
+}
+
+function wassa_disclaimer_delete_form_submit($form, &$form_state)
+{
+    $disclaimer = $form['#item'];
+
+    db_delete('wassa_disclaimer')
+        ->condition('nid', $disclaimer->nid)
+        ->execute();
+
+    $form_state['redirect'] = 'admin/config/wassa/disclaimer';
+    drupal_set_message(t('The disclaimer has been deleted'));
+}

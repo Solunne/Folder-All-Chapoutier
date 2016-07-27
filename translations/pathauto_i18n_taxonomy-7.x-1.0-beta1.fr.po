@@ -1,0 +1,26 @@
+# French translation of Pathauto i18n Taxonomy (7.x-1.0-beta1)
+# Copyright (c) 2012 by the French translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Pathauto i18n Taxonomy (7.x-1.0-beta1)\n"
+"POT-Creation-Date: 2012-05-23 12:11+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Pattern for all %vocab-name paths"
+msgstr "Modèle de chemin pour le vocabulaire %vocab-name"
+msgid "Multilingual"
+msgstr "Multilingue"
+msgid "Updated alias for term @tid."
+msgstr "Alias mis à jour pour le terme @tid."
+msgid "Updated URL alias for 1 term."
+msgid_plural "Updated URL aliases for @count terms."
+msgstr[0] "Alias d'URL mis à jour pour 1 terme."
+msgstr[1] "Alias d'URL mis à jour pour @count termes."
+msgid "An array of all the term's parents, starting with the root."
+msgstr "Une liste de tous les termes parents, en commençant avec la racine."

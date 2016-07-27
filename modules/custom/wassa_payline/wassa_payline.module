@@ -1,0 +1,609 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: adelannoy
+ * Date: 02/06/16
+ * Time: 11:53
+ */
+module_load_include('php', 'wassa_payline', 'library/paylineSDK');
+/**
+ * Implements hook_menu().
+ */
+function wassa_payline_menu()
+{
+    $items = array();
+    $items['admin/config/wassa/payline'] = array(
+        'title' => 'Payline',
+        'description' => 'Configuration for Payline API',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('wassa_payline_form'),
+        'access arguments' => array('access administration pages'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
+}
+
+/**
+ * Page callback : Payline settings.
+ * Implements hook_form().
+ * @see wassa_payline_menu()
+ */
+function wassa_payline_form($form, &$form_state)
+{
+    $paylineConf = variable_get('wassa_payline_config');
+
+    $form['merchant_id'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Merchant ID'),
+        '#default_value' => $paylineConf['merchant_id'],
+        '#description' => t('The Merchant ID provide by Payline.'),
+        '#required' => TRUE,
+    );
+    $form['access_key'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Access Key'),
+        '#default_value' => $paylineConf['access_key'],
+        '#description' => t('The Access Key generated in the Payline administration console.'),
+        '#required' => TRUE,
+    );
+    $form['contract_number'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Contract Number'),
+        '#default_value' => $paylineConf['contract_number'],
+        '#description' => t('The Contract Number generated in the Payline administration console.'),
+        '#required' => TRUE,
+    );
+    $form['environment'] = array(
+        '#type' => 'select',
+        '#title' => t('Environment'),
+        '#options' => array(
+            'HOMO' => t('Homologation'),
+            'PROD' => t('Production'),
+        ),
+        '#default_value' => $paylineConf['environment'],
+        '#description' => t('Environment corresponding to used Payline mode.'),
+        '#required' => TRUE,
+    );
+    $form['version'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Version'),
+        '#default_value' => $paylineConf['version'],
+        '#description' => t('The version of API used for Payline web services.'),
+        '#required' => TRUE,
+    );
+    $form['payment_currency'] = array(
+        '#type' => 'select',
+        '#title' => t('Payment Currency'),
+        '#options' => array(
+            978 => t('Euro'),
+            840 => t('US dollar'),
+            756 => t('Swiss franc'),
+            826 => t('Pound sterling'),
+            124 => t('Canadian dollar'),
+        ),
+        '#default_value' => $paylineConf['payment_currency'],
+        '#description' => t('The payment currency to use by default.'),
+        '#required' => TRUE,
+    );
+    $form['order_currency'] = array(
+        '#type' => 'select',
+        '#title' => t('Order Currency'),
+        '#options' => array(
+            978 => t('Euro'),
+            840 => t('US dollar'),
+            756 => t('Swiss franc'),
+            826 => t('Pound sterling'),
+            124 => t('Canadian dollar'),
+        ),
+        '#default_value' => $paylineConf['order_currency'],
+        '#description' => t('The order currency to use by default.'),
+        '#required' => TRUE,
+    );
+    $form['language_code'] = array(
+        '#type' => 'select',
+        '#title' => t('Language Code'),
+        '#options' => array(
+            'FR' => t('French'),
+            'EN' => t('English'),
+            'ES' => t('Spanish'),
+            'IT' => t('Italian'),
+            'POR' => t('Portuguese'),
+            'DE' => t('German'),
+            'NL' => t('Flemish'),
+            'FI' => t('Finnish'),
+        ),
+        '#default_value' => $paylineConf['language_code'],
+        '#description' => t('The language to use by default.'),
+        '#required' => TRUE,
+    );
+    $form['payment_action'] = array(
+        '#type' => 'select',
+        '#title' => t('Payment Mode'),
+        '#options' => array(
+            100 => t('100 - Authorization'),
+            108 => t('108 - Information request to use with a null or empty transaction amount'),
+            101 => t('101 - Authorization + Validation'),
+            110 => t('110 - Simple authorisation performed as first payment of a recurring payment request, to allow following payments to take place without CVx2'),
+            111 => t('111 - Authorization + Validation  performed as first payment of a recurring payment request, to allow following payments to take place without CVx2'),
+            120 => t('120 - Simple authorisation in which the merchant does not need to specify the CVx2 to carry out the payment (CVx2 entered during first payment)'),
+            121 => t('121 - Authorisation + Validation in which the merchant does not need to specify the CVx2 to carry out the payment (CVx2 entered during first payment)'),
+            201 => t('201 - Validation'),
+            204 => t('204 - Debit'),
+            421 => t('421 - Refund'),
+            422 => t('422 - Credit'),
+            202 => t('202 - Reauthorization'),
+        ),
+        '#default_value' => $paylineConf['payment_mode'],
+        '#description' => t('The payment mode to use by default.'),
+        '#required' => TRUE,
+    );
+    $form['payment_mode'] = array(
+        '#type' => 'select',
+        '#title' => t('Payment Mode'),
+        '#options' => array(
+            'CPT' => t('Spot'),
+            'DIF' => t('Delayed'),
+            'NX' => t('N times'),
+            'REC' => t('Recurrent'),
+        ),
+        '#default_value' => $paylineConf['payment_mode'],
+        '#description' => t('The payment mode to use by default.'),
+        '#required' => TRUE,
+    );
+    $form['cancel_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Cancel URL'),
+        '#default_value' => $paylineConf['cancel_url'],
+        '#maxlength' => 255,
+        '#description' => t('Cancel URL used when payment has been refused or canceled by the client.'),
+        '#required' => TRUE,
+    );
+    $form['notification_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Notification URL'),
+        '#default_value' => $paylineConf['notification_url'],
+        '#maxlength' => 255,
+        '#description' => t('Notification URL used when Payline notify that payment is confirmed.'),
+        '#required' => TRUE,
+    );
+    $form['return_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Return URL'),
+        '#default_value' => $paylineConf['return_url'],
+        '#maxlength' => 255,
+        '#description' => t('Return URL used when the payment has been confirmed.'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save Settings'),
+    );
+    return $form;
+}
+
+/**
+ * Save the Payline configuration.
+ * @param $form
+ * @param $form_state
+ */
+function wassa_payline_form_submit($form, &$form_state)
+{
+    variable_set('wassa_payline_config', $form_state['values']);
+    drupal_set_message(t('Your configuration has been saved.'));
+}
+
+/**
+ * Implements hook_commerce_payment_method_info().
+ */
+function wassa_payline_commerce_payment_method_info() {
+    $payment_methods = array();
+    $payment_methods['wassa_payline_payment'] = array(
+        'title' => t('Bank card'),
+        'description' => t('Payment gateway that allows Commerce Card on File with Payline.'),
+        'cardonfile' => array(
+            'charge callback' => 'wassa_payline_payment_cardonfile_charge',
+            'create callback' => 'wassa_payline_payment_cardonfile_create',
+            'update callback' => 'wassa_payline_payment_cardonfile_update',
+            'delete callback' => 'wassa_payline_payment_cardonfile_delete',
+        ),
+        'active' => TRUE,
+    );
+    return $payment_methods;
+}
+
+/**
+ * Payment method callback: submit form.
+ */
+function wassa_payline_payment_submit_form($payment_method, $pane_values, $checkout_pane, $order) {
+    module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
+    $fields = array(
+        'type' => array(
+            'visa',
+            'mastercard',
+            'cb',
+            'maestro',
+            'amex',
+        ),
+        'owner' => '',
+        'code' => '',
+    );
+    $form = commerce_payment_credit_card_form($fields);
+    return $form;
+}
+
+/**
+ * Payment method callback: submit form validation.
+ */
+function wassa_payline_payment_submit_form_validate($payment_method, $pane_form, $pane_values, $order, $form_parents = array()) {
+
+    // Get the Payline SDK.
+    $paylineSDK = getPaylineSDK();
+    // Get Payline Configuration from DB.
+    $paylineConfig = variable_get('wassa_payline_config');
+
+    // If user use a saved card.
+    if (isset($pane_values['cardonfile']) && is_numeric($pane_values['cardonfile'])) {
+        $card = commerce_cardonfile_load($pane_values['cardonfile']);
+        if ($card) {
+            return NULL;
+        }
+    }
+
+    // If user use a new card.
+    // Get the Token with the given card.
+    $resultToken = $paylineSDK->getToken(array(
+        'cardNumber' => $pane_values['credit_card']['number'],
+        'expirationDate' => $pane_values['credit_card']['exp_month'] . substr($pane_values['credit_card']['exp_year'], -2),
+        'contractNumber' => $paylineConfig['contract_number'],
+    ));
+    // Validate credit card fields with Luhn algorythm and Payline.
+    module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
+    $settings = array(
+        'form_parents' => array_merge($form_parents, array('credit_card')),
+    );
+    if (!commerce_payment_credit_card_validate($pane_values['credit_card'], $settings) || $resultToken['result']['code'] != '02500') {
+        return FALSE;
+    }
+}
+
+
+/**
+ * Payment method callback: submit form submission.
+ */
+function wassa_payline_payment_submit_form_submit($payment_method, $pane_form, $pane_values, $order, $charge) {
+
+    // Get the Payline SDK.
+    $paylineSDK = getPaylineSDK();
+    // Get Payline Configuration from DB.
+    $paylineConfig = variable_get('wassa_payline_config');
+
+    $cardInfo = array();
+    $walletPayment = FALSE;
+
+    // If a card is used.
+    if (isset($pane_values['cardonfile'])) {
+        // Card on File form elements are added to the payment form.
+        $cardonfile = $pane_values['cardonfile'];
+        $cardonfile_instance_default = $pane_values['cardonfile_instance_default'];
+        $cardonfile_store = $pane_values['credit_card']['cardonfile_store'];
+
+
+        // If the card is a new card.
+        if ($cardonfile == 'new') {
+            // If user is anonymous.
+            if ($order->uid > 0) {
+                $cardInfo = array(
+                    'number' => $pane_values['credit_card']['number'],
+                    'type' => $pane_values['credit_card']['type'],
+                    'expirationDate' => $pane_values['credit_card']['exp_month'] . substr($pane_values['credit_card']['exp_year'], -2),
+                    'cvx' => $pane_values['credit_card']['code'],
+                    'walletPayment' => FALSE,
+                );
+                
+                // Store the card if option is selected.
+                if ($cardonfile_store) {
+                    // Get shipping information from user.
+                    $billingId = $order->commerce_customer_billing['und'][0]['profile_id'];
+                    $userData = commerce_customer_profile_load($billingId);
+                    $userLoaded = user_load($order->uid);
+                    // var_dump($userMail);exit();
+
+
+                    // Prepare an array of request parameters.
+                    $array = array(
+                        'version' => intval($paylineConfig['version']),
+                        'contractNumber' => $paylineConfig['contract_number'],
+                        'wallet' => array(
+                            'walletId' => $order->uid,
+                            'lastName' => $userData->commerce_customer_address['und'][0]['last_name'],
+                            'firstName' => $userData->commerce_customer_address['und'][0]['first_name'],
+                            'email' => $userLoaded->mail,
+                            'default' => ($cardonfile_instance_default) ? 'Y' : 'N',
+                        ),
+                        'card' => $cardInfo,
+                    );
+                    
+
+                    // Create the wallet with the given card.
+                    $createWalletResponse = $paylineSDK->createWallet($array);
+
+                    if (!in_array($createWalletResponse['result']['code'], array('02500', '02502', '02521'))) {
+                        var_dump($createWalletResponse['result']['code']);
+                        return FALSE;
+                    } else {
+                        // A new card is used and we are supposed to store it.
+                        $card = commerce_cardonfile_new(array(
+                            'uid' => $order->uid,
+                            'payment_method' => $payment_method['method_id'],
+                            'instance_id' => $payment_method['instance_id'],
+                            'remote_id' => rand(1000, 9999),
+                            'card_type' => $pane_values['credit_card']['type'],
+                            'card_name' => $pane_values['credit_card']['owner'],
+                            'card_number' => substr($pane_values['credit_card']['number'], -4),
+                            'card_exp_month' => $pane_values['credit_card']['exp_month'],
+                            'card_exp_year' => $pane_values['credit_card']['exp_year'],
+                            'status' => 1,
+                            'instance_default' => $cardonfile_instance_default ? 1 : 0,
+                        ));
+                        commerce_cardonfile_save($card);
+                        $cardInfo['walletPayment'] = TRUE;
+                    }
+                }
+            } else {
+                $cardInfo = array(
+                    'number' => intval($pane_values['credit_card']['number']),
+                    'type' => $pane_values['credit_card']['type'],
+                    'expirationDate' => $pane_values['credit_card']['exp_month'] . substr($pane_values['credit_card']['exp_year'], -2),
+                    'cvx' => intval($pane_values['credit_card']['code']),
+                    'walletPayment' => FALSE,
+                );
+            }
+
+        } else if (is_numeric($cardonfile)) {
+            // A stored card is selected to use.
+            $card = commerce_cardonfile_load($cardonfile);
+
+            // Get the saved card form Payline.
+            $getWalletResponse = $paylineSDK->getWallet(array(
+                'version' => intval($paylineConfig['config']),
+                'contractNumber' => $paylineConfig['contract_number'],
+                'walletId' => $order->uid
+            ));
+
+//            var_dump($getWalletResponse);exit();
+            if ($getWalletResponse['result']['code'] != '02500') {
+                return FALSE;
+            } else {
+                $cardInfo = array(
+                    'number' => $getWalletResponse['wallet']['card']['number'],
+                    'type' => $getWalletResponse['wallet']['card']['type'],
+                    'expirationDate' => $getWalletResponse['wallet']['card']['expirationDate'],
+                    'cvx' => $getWalletResponse['wallet']['card']['cvx'],
+                    'walletPayment' => TRUE,
+                );
+            }
+        }
+
+        $order->data['wassa_payline_payment'] = $cardInfo;
+
+        if (isset($card)) {
+            return wassa_payline_payment_cardonfile_charge($payment_method, $card, $order, $charge);
+        }
+    }
+
+    return wassa_payline_payment_transaction($payment_method, $order, $charge);
+}
+
+/**
+ * Creates a payment transaction with the specified transaction status.
+ */
+function wassa_payline_payment_transaction($payment_method, $order, $charge) {
+//    var_dump($payment_method);
+//    var_dump('--------------------------------------------------');
+//    var_dump($order);
+//    var_dump('--------------------------------------------------');
+//    var_dump($charge);exit();
+
+    // Get the Payline SDK.
+    $paylineSDK = getPaylineSDK();
+    // Get Payline Configuration from DB.
+    $paylineConfig = variable_get('wassa_payline_config');
+
+    $transaction_status = COMMERCE_PAYMENT_STATUS_SUCCESS;
+
+    $paylinePayment = $order->data['wassa_payline_payment'];
+
+    $array = array();
+    $array['version'] = intval($paylineConfig['version']);
+    $array['walletId'] = $order->uid;
+    // Payment
+    $array['payment']['amount'] = intval($order->commerce_order_total['und'][0]['amount']); // this value has to be an integer amount is sent in cents
+    $array['payment']['currency'] = intval($paylineConfig['payment_currency']); // ISO 4217 code for euro
+    $array['payment']['action'] = intval($paylineConfig['payment_action']); // 101 stand for "authorization+capture"
+    $array['payment']['mode'] = $paylineConfig['payment_mode']; // one shot payment
+    $array['payment']['contractNumber'] = $paylineConfig['contract_number'];
+    // Order
+    $array['order']['ref'] = $order->order_number; // the reference of your order
+    $array['order']['amount'] = intval($order->commerce_order_total['und'][0]['amount']); // may differ from payment.amount if currency is different
+    $array['order']['currency'] = intval($paylineConfig['order_currency']); // ISO 4217 code for euro
+    $array['order']['date'] = date('d/m/Y H:i', $order->changed); // the reference of your order
+
+    if (!$paylinePayment['walletPayment']) {
+        // Card
+        $array['card']['number'] = intval($paylinePayment['number']);
+        $array['card']['expirationDate'] = $paylinePayment['expirationDate'];
+        $array['card']['cvx'] = intval($paylinePayment['cvx']);
+        $array['card']['type'] = $paylinePayment['type'];
+
+        // DoAuthorization (Authorization + Validation).
+        $resultPayment = $paylineSDK->doAuthorization($array);
+
+        if (!in_array($resultPayment['result']['code'], array('00000', '01001'))) {
+            $transaction_status = COMMERCE_PAYMENT_STATUS_FAILURE;
+        }
+    } else {
+        //Wallet
+        $array['walletId'] = $order->uid;
+        // DoImmediateWalletPayment.
+        $resultPayment = $paylineSDK->doImmediateWalletPayment($array);
+
+        if (!in_array($resultPayment['result']['code'], array('00000', '01001'))) {
+            $transaction_status = COMMERCE_PAYMENT_STATUS_FAILURE;
+        }
+    }
+
+    $transaction = commerce_payment_transaction_new('wassa_payline_payment', $order->order_id);
+    $transaction->instance_id = $payment_method['instance_id'];
+    $transaction->amount = $charge['amount'];
+    $transaction->currency_code = $charge['currency_code'];
+    $transaction->status = $transaction_status;
+    $transaction->remote_id = $resultPayment['transaction']['id'];
+    $transaction->message = 'Name: @name. Transaction status: !status.';
+    $transaction->message_variables = array(
+        '@name' => 'Commerce Card on File Payline',
+        '!status' => $transaction_status,
+    );
+
+    commerce_payment_transaction_save($transaction);
+    return $transaction_status;
+}
+
+/**
+ * Card on File callback: charge credit card.
+ */
+function wassa_payline_payment_cardonfile_charge($payment_method, $card, $order, $charge = NULL) {
+    if (!isset($charge)) {
+        $wrapper = entity_metadata_wrapper('commerce_order', $order);
+        $charge = commerce_line_items_total($wrapper->commerce_line_items);
+    }
+    return wassa_payline_payment_transaction($payment_method, $order, $charge);
+}
+
+/**
+ * Card on File callback: add new credit card.
+ */
+function wassa_payline_payment_cardonfile_create($form, $form_state, $payment_method, $card) {
+    $card->remote_id = rand(1000, 9999);
+    return $card;
+}
+
+/**
+ * Card on File callback: update credit card.
+ */
+function wassa_payline_payment_cardonfile_update($form, $form_state, $payment_method, $card) {
+    // Get the Payline SDK.
+    $paylineSDK = getPaylineSDK();
+    // Get Payline Configuration from DB.
+    $paylineConfig = variable_get('wassa_payline_config');
+
+    $op = $form_state['op'];
+    $card = $form_state['card'];
+
+    if ($op == 'update') {
+        // Get card's user data.
+        $userData = user_load($card->uid);
+
+        // Prepare request parameters.
+        $array = array(
+            'version' => intval($paylineConfig['version']),
+            'contractNumber' => $paylineConfig['contract_number'],
+            'cardInd' => '01',
+            'wallet' => array(
+                'walletId' => $card->uid,
+                'lastName' => $userData->field_lastname['fr'][0]['value'],
+                'firstName' => $userData->field_firstname['fr'][0]['value'],
+                'email' => $userData->mail,
+            ),
+            'card' => array(
+                'expirationDate' => $card->card_exp_month . substr($card->card_exp_year, -2),
+                'cardholder' => $card->card_name,
+                'type' => $card->card_type,
+            ),
+        );
+
+        $updateWalletResponse = $paylineSDK->updateWallet($array);
+
+        if ($updateWalletResponse['result']['code'] != '02500') {
+            var_dump($updateWalletResponse);exit();
+            return FALSE;
+        }
+    }
+
+
+    return TRUE;
+}
+
+/**
+ * Card on File callback: delete credit card.
+ */
+function wassa_payline_payment_cardonfile_delete($form, $form_state, $payment_method, $card) {
+    return TRUE;
+}
+
+function getPaylineSDK() {
+    $paylineConfig = variable_get('wassa_payline_config');
+    $paylineSDK = new PaylineSDK($paylineConfig['merchant_id'], $paylineConfig['access_key'], '', '', '', '', $paylineConfig['environment'], 'sites/chapoutier.com/files/private');
+    $paylineSDK->returnURL = $paylineConfig['return_url'];
+    $paylineSDK->cancelURL = $paylineConfig['cancel_url'];
+    $paylineSDK->notificationURL = $paylineConfig['notification_url'];
+
+    return $paylineSDK;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function wassa_payline_form_commerce_cardonfile_card_form_alter(&$form, &$form_state, $form_id)
+{
+    array_unshift($form['#submit'], 'wassa_payline_card_form_submit');
+}
+
+/**
+ * Override submit callback for commerce_cardonfile_card_form().
+ */
+function wassa_payline_card_form_submit($form, &$form_state) {
+    $op = $form_state['op'];
+    $card = $form_state['card'];
+
+    $card->card_name = $form_state['values']['credit_card']['owner'];
+    $card->card_exp_month = $form_state['values']['credit_card']['exp_month'];
+    $card->card_exp_year = $form_state['values']['credit_card']['exp_year'];
+    if ($op == 'create') {
+        $card->card_number = substr($form_state['values']['credit_card']['number'], -4);
+        $card->card_type = $form_state['values']['credit_card']['type'];
+    }
+    $card->instance_default = $form_state['values']['credit_card']['cardonfile_instance_default'];
+
+    // Invoke the payment method's card create/update callback.
+    $payment_method = commerce_payment_method_instance_load($card->instance_id);
+    $callback = $payment_method['cardonfile'][$op . ' callback'];
+    $success = FALSE;
+    if (function_exists($callback)) {
+//        var_dump($callback);exit();
+        $callback_return = $callback($form, $form_state, $payment_method, $card);
+        if ($callback_return) {
+            if ($op == 'create') {
+                $card_save = $callback_return;
+                $confirm_message = t('A new card has been added.');
+            }
+            else {
+                $card_save = $card;
+                $confirm_message = t('The card has been updated.');
+            }
+            commerce_cardonfile_save($card_save);
+            drupal_set_message($confirm_message);
+            $success = TRUE;
+        }
+    }
+
+    if (!$success) {
+        if ($op == 'create') {
+            drupal_set_message(t('We encountered an error attempting to save your card data. Please try again and contact us if this error persists.'), 'error');
+        }
+        else {
+            drupal_set_message(t('We encountered an error attempting to update your card data. Please try again and contact us if this error persists.'), 'error');
+        }
+    }
+    $form_state['redirect'] = 'user/' . $card->uid . '/cards';
+}

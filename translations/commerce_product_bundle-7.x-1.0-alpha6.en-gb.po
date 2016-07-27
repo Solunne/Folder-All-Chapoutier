@@ -1,0 +1,20 @@
+# English, British translation of Commerce Product Bundle (7.x-1.0-alpha6)
+# Copyright (c) 2014 by the English, British translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Commerce Product Bundle (7.x-1.0-alpha6)\n"
+"POT-Creation-Date: 2014-05-27 20:42+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: English, British\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Disabled"
+msgstr "Disabled"
+msgid "Enabled"
+msgstr "Enabled"
+msgid "Order"
+msgstr "Order"

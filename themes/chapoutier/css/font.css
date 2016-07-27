@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'BebasNeue-bold';
+    src: url("../fonts/BebasNeue/BebasNeue-bold/BebasNeueBold.eot");
+    src: url("../fonts/BebasNeue/BebasNeue-bold/BebasNeueBold.eot?#iefix") format("embedded-opentype"), url("../fonts/BebasNeue/BebasNeue-bold/BebasNeueBold.woff") format("woff"), url("../fonts/BebasNeue/BebasNeue-bold/BebasNeueBold.ttf") format("truetype"), url("../fonts/BebasNeue/BebasNeue-bold/BebasNeueBold.svg#BebasNeueBold") format("svg");
+    font-weight: bold;
+    font-style: normal
+}
+@font-face {
+    font-family: 'BebasNeue-Regular';
+    src: url("../fonts/BebasNeue/BebasNeue-Regular/BebasNeueRegular.eot");
+    src: url("../fonts/BebasNeue/BebasNeue-Regular/BebasNeueRegular.eot?#iefix") format("embedded-opentype"), url("../fonts/BebasNeue/BebasNeue-Regular/BebasNeueRegular.woff") format("woff"), url("../fonts/BebasNeue/BebasNeue-Regular/BebasNeueRegular.ttf") format("truetype"), url("../fonts/BebasNeue/BebasNeue-Regular/BebasNeueRegular.svg#BebasNeue-Regular") format("svg");
+    font-weight: normal;
+    font-style: normal
+}
+@font-face {
+    font-family: 'CenturySchoolBook-Bold';
+    src: url("../fonts/century-schoolbook/CenturySchoolBook-Bold/TeXGyreSchola-Bold.eot");
+    src: url("../fonts/century-schoolbook/CenturySchoolBook-Bold/TeXGyreSchola-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/century-schoolbook/CenturySchoolBook-Bold/TeXGyreSchola-Bold.woff") format("woff"), url("../fonts/century-schoolbook/CenturySchoolBook-Bold/TeXGyreSchola-Bold.ttf") format("truetype"), url("../fonts/century-schoolbook/CenturySchoolBook-Bold/TeXGyreSchola-Bold.svg#CenturySchoolBook-Bold") format("svg");
+    font-weight: bold;
+    font-style: normal
+}
+@font-face {
+    font-family: 'CenturySchoolbook-Bolditalic';
+    src: url("../fonts/century-schoolbook/CenturySchoolbook-Bolditalic/TeXGyreSchola-BoldItalic.eot");
+    src: url("../fonts/century-schoolbook/CenturySchoolbook-Bolditalic/TeXGyreSchola-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../fonts/century-schoolbook/CenturySchoolbook-Bolditalic/TeXGyreSchola-BoldItalic.woff") format("woff"), url("../fonts/century-schoolbook/CenturySchoolbook-Bolditalic/TeXGyreSchola-BoldItalic.ttf") format("truetype"), url("../fonts/century-schoolbook/CenturySchoolbook-Bolditalic/TeXGyreSchola-BoldItalic.svg#CenturySchoolbook-Bolditalic") format("svg");
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CenturySchoolbook-italic';
+    src: url("../fonts/century-schoolbook/CenturySchoolbook-italic/TeXGyreSchola-Italic.eot");
+    src: url("../fonts/century-schoolbook/CenturySchoolbook-italic/TeXGyreSchola-Italic.eot?#iefix") format("embedded-opentype"), url("../fonts/century-schoolbook/CenturySchoolbook-italic/TeXGyreSchola-Italic.woff") format("woff"), url("../fonts/century-schoolbook/CenturySchoolbook-italic/TeXGyreSchola-Italic.ttf") format("truetype"), url("../fonts/century-schoolbook/CenturySchoolbook-italic/TeXGyreSchola-Italic.svg#CenturySchoolbook-italic") format("svg");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CenturySchoolbook-Regular';
+    src: url("../fonts/century-schoolbook/CenturySchoolbook-Regular/TeXGyreSchola-Regular.eot");
+    src: url("../fonts/century-schoolbook/CenturySchoolbook-Regular/TeXGyreSchola-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/century-schoolbook/CenturySchoolbook-Regular/TeXGyreSchola-Regular.woff") format("woff"), url("../fonts/century-schoolbook/CenturySchoolbook-Regular/TeXGyreSchola-Regular.ttf") format("truetype"), url("../fonts/century-schoolbook/CenturySchoolbook-Regular/TeXGyreSchola-Regular.svg#CenturySchoolbook-Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HelveticaNeue-UltraLightCondensed';
+    src: url("../fonts/HelveticaNeue-UltraLightCondensed/HelveticaNeueLTStd-UltLtCn.eot");
+    src: url("../fonts/HelveticaNeue-UltraLightCondensed/HelveticaNeueLTStd-UltLtCn.eot?#iefix") format("embedded-opentype"), url("../fonts/HelveticaNeue-UltraLightCondensed/HelveticaNeueLTStd-UltLtCn.woff") format("woff"), url("../fonts/HelveticaNeue-UltraLightCondensed/HelveticaNeueLTStd-UltLtCn.ttf") format("truetype"), url("../fonts/HelveticaNeue-UltraLightCondensed/HelveticaNeueLTStd-UltLtCn.svg#HelveticaNeue-UltraLightCondensed") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HelveticaNeue-light';
+    src: url("../fonts/HelveticaNeue-light/HelveticaNeue-Light.eot");
+    src: url("../fonts/HelveticaNeue-light/HelveticaNeue-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/HelveticaNeue-light/HelveticaNeue-Light.woff") format("woff"), url("../fonts/HelveticaNeue-light/HelveticaNeue-Light.ttf") format("truetype"), url("../fonts/HelveticaNeue-light/HelveticaNeue-Light.svg#HelveticaNeue-light") format("svg");
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HelveticaNeue-Black';
+    src: url("../fonts/HelveticaNeue-Black/HelveticaNeueLTStd-Blk.eot");
+    src: url("../fonts/HelveticaNeue-Black/HelveticaNeueLTStd-Blk.eot?#iefix") format("embedded-opentype"), url("../fonts/HelveticaNeue-Black/HelveticaNeueLTStd-Blk.woff") format("woff"), url("../fonts/HelveticaNeue-Black/HelveticaNeueLTStd-Blk.ttf") format("truetype"), url("../fonts/HelveticaNeue-Black/HelveticaNeueLTStd-Blk.svg#HelveticaNeue-Black") format("svg");
+    font-weight: bold;
+    font-style: normal;
+}

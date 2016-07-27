@@ -1,0 +1,17 @@
+name = Pathauto i18n taxonomy
+description = Creates taxonomy paths in enabled languages.
+dependencies[] = path
+dependencies[] = token
+dependencies[] = pathauto
+dependencies[] = i18n
+
+package = Multilingual
+core = 7.x
+
+
+; Information added by drupal.org packaging script on 2012-05-22
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "pathauto_i18n_taxonomy"
+datestamp = "1337688383"
+

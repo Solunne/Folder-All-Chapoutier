@@ -1,0 +1,22 @@
+# German translation of Distribution Update Status Manager (7.x-1.0-beta4)
+# Copyright (c) 2014 by the German translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Distribution Update Status Manager (7.x-1.0-beta4)\n"
+"POT-Creation-Date: 2014-10-23 10:16+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Modules"
+msgstr "Module"
+msgid "days"
+msgstr "Tage"
+msgid "Themes"
+msgstr "Themes"
+msgid "All of your projects are up to date."
+msgstr "Alle Ihre Projekte sind aktuell."

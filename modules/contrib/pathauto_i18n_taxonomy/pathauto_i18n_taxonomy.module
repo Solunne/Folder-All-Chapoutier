@@ -1,0 +1,237 @@
+<?php
+
+/*
+ * ideas & todos
+ *
+ * rel=canonical?
+ * http://support.google.com/webmasters/bin/answer.py?hl=de&answer=139394
+ * drupal_add_html_head
+ */
+
+
+/*
+ * implements hook_pathauto_alias_alter
+ *
+ * * Alter Pathauto-generated aliases before saving.
+ *
+ * @param string $alias
+ *   The automatic alias after token replacement and strings cleaned.
+ * @param array $context
+ *   An associative array of additional options, with the following elements:
+ *   - 'module': The module or entity type being aliased.
+ *   - 'op': A string with the operation being performed on the object being
+ *     aliased. Can be either 'insert', 'update', 'return', or 'bulkupdate'.
+ *   - 'source': A string of the source path for the alias (e.g. 'node/1').
+ *     This can be altered by reference.
+ *   - 'data': An array of keyed objects to pass to token_replace().
+ *   - 'type': The sub-type or bundle of the object being aliased.
+ *   - 'language': A string of the language code for the alias (e.g. 'en').
+ *     This can be altered by reference.
+ *   - 'pattern': A string of the pattern used for aliasing the object.
+ */
+
+
+function pathauto_i18n_taxonomy_pathauto_alias_alter(&$alias, array &$context) {
+
+  $me ="foo";
+
+
+}
+
+
+/*
+ * hook_path_alias_types()
+ */
+
+function pathauto_i18n_taxonomy_path_alias_types() {
+}
+
+/*
+ * hook_pathauto()
+ *
+ * @see taxonomy_pathauto()
+ */
+
+function pathauto_i18n_taxonomy_pathauto($op) {
+
+  $me = "foo";
+
+  switch ($op) {
+    case 'settings':
+      $settings = array();
+      $settings['module'] = 'taxonomy_i18n';
+      $settings['token_type'] = 'term';
+      $settings['groupheader'] = t('Taxonomy term paths for i18n');
+      $settings['patterndescr'] = t('Default path pattern for i18n taxonomy (applies to all vocabularies with blank patterns below)');
+      $settings['patterndefault'] = '[term:i18n-vocabulary]/[term:i18n-name]';
+      $settings['batch_update_callback'] = 'pathauto_i18n_taxonomy_bulk_update_batch_process';
+      $settings['batch_file'] = drupal_get_path('module', 'pathauto_i18n_taxonomy') . '/pathauto_i18n_taxonomy.module';
+
+      $vocabularies = taxonomy_get_vocabularies();
+      if (count($vocabularies)) {
+        $settings['patternitems'] = array();
+        foreach ($vocabularies as $vid => $vocabulary) {
+          if ($vid == variable_get('forum_nav_vocabulary', '')) {
+            // Skip the forum vocabulary.
+            continue;
+          }
+          $settings['patternitems'][$vocabulary->machine_name] = t('Pattern for all %vocab-name paths', array('%vocab-name' => $vocabulary->name));
+        }
+      }
+      return (object) $settings;
+    default:
+      break;
+  }
+
+}
+
+/**
+ * Batch processing callback; Generate aliases for taxonomy terms.
+ *
+ * taken form original taxonomy_pathauto_bulk_update_batch_process()
+ */
+function pathauto_i18n_taxonomy_bulk_update_batch_process(&$context) {
+  if (!isset($context['sandbox']['current'])) {
+    $context['sandbox']['count'] = 0;
+    $context['sandbox']['current'] = 0;
+  }
+
+  $query = db_select('taxonomy_term_data', 'td');
+  $query->leftJoin('url_alias', 'ua', "CONCAT('taxonomy/term/', td.tid) = ua.source");
+  $query->addField('td', 'tid');
+  $query->isNull('ua.source');
+  $query->condition('td.tid', $context['sandbox']['current'], '>');
+
+  // Exclude the forums terms.
+  if ($forum_vid = variable_get('forum_nav_vocabulary', '')) {
+    $query->condition('td.vid', $forum_vid, '<>');
+  }
+  $query->orderBy('td.tid');
+  $query->addTag('pathauto_bulk_update');
+  $query->addMetaData('entity', 'taxonomy_i18n');
+
+  // Get the total amount of items to process.
+  if (!isset($context['sandbox']['total'])) {
+    $context['sandbox']['total'] = $query->countQuery()->execute()->fetchField();
+
+    // If there are no nodes to update, the stop immediately.
+    if (!$context['sandbox']['total']) {
+      $context['finished'] = 1;
+      return;
+    }
+  }
+
+  $query->range(0, 25);
+  $tids = $query->execute()->fetchCol();
+
+  //own function here for i18n
+  pathauto_i18n_taxonomy_taxonomy_term_update_alias_multiple($tids, 'bulkupdate');
+  $context['sandbox']['count'] += count($tids);
+  $context['sandbox']['current'] = max($tids);
+  $context['message'] = t('Updated alias for term @tid.', array('@tid' => end($tids)));
+
+  if ($context['sandbox']['count'] != $context['sandbox']['total']) {
+    $context['finished'] = $context['sandbox']['count'] / $context['sandbox']['total'];
+  }
+}
+
+
+/**
+ * TAKEN FROM ORIGIANL pathauto module and modified
+ *
+ * Update the URL aliases for multiple taxonomy terms.
+ *
+ * @param $tids
+ *   An array of term IDs.
+ * @param $op
+ *   Operation being performed on the nodes ('insert', 'update' or
+ *   'bulkupdate').
+ * @param $options
+ *   An optional array of additional options.
+ */
+function pathauto_i18n_taxonomy_taxonomy_term_update_alias_multiple(array $tids, $op, array $options = array()) {
+  $options += array('message' => FALSE);
+
+  $terms = taxonomy_term_load_multiple($tids);
+  foreach ($terms as $term) {
+
+    //this are changes for i18n support
+    $languages = $languages = i18n_language_list();
+    foreach($languages as $language => $language_name) {
+      $options['language'] = $language;
+      //using pathautos function
+      pathauto_i18n_taxonomy_taxonomy_term_update_alias($term, $op, $options);
+    }
+
+  }
+
+  if (!empty($options['message'])) {
+    drupal_set_message(format_plural(count($tids), 'Updated URL alias for 1 term.', 'Updated URL aliases for @count terms.'));
+  }
+}
+
+/**
+ * TAKEN FROM ORIGINAL PATHAUTO
+ *
+ * Update the URL aliases for an individual taxonomy term.
+ *
+ * @param $term
+ *   A taxonomy term object.
+ * @param $op
+ *   Operation being performed on the term ('insert', 'update' or 'bulkupdate').
+ * @param $options
+ *   An optional array of additional options.
+ */
+function pathauto_i18n_taxonomy_taxonomy_term_update_alias(stdClass $term, $op, array $options = array()) {
+  // Skip processing if the user has disabled pathauto for the term.
+  if (isset($term->path['pathauto']) && empty($term->path['pathauto'])) {
+    return;
+  }
+
+//  $options += array(
+//    'alias children' => FALSE,
+//    'language' => !empty($term->language) ? $term->language : LANGUAGE_NONE,
+//  );
+
+  //adding i18n support
+  $options += array(
+    'alias children' => FALSE,
+    'language' => !empty($options['language']) ? $options['language'] : LANGUAGE_NONE,
+  );
+
+  $module = 'taxonomy_i18n';
+  if ($term->vid == variable_get('forum_nav_vocabulary', '')) {
+    if (module_exists('forum')) {
+      $module = 'forum';
+    }
+    else {
+      return;
+    }
+  }
+
+  // Check that the term has its bundle, which is the vocabulary's machine name.
+  if (!isset($term->vocabulary_machine_name)) {
+    $vocabulary = taxonomy_vocabulary_load($term->vid);
+    $term->vocabulary_machine_name = $vocabulary->machine_name;
+  }
+
+  // Skip processing if the term has no pattern.
+  if (!pathauto_pattern_load_by_entity($module, $term->vocabulary_machine_name)) {
+    return;
+  }
+
+  module_load_include('inc', 'pathauto');
+  $uri = entity_uri('taxonomy_term', $term);
+  pathauto_create_alias($module, $op, $uri['path'], array('term' => $term), $term->vocabulary_machine_name, $options['language']);
+
+  if (!empty($options['alias children'])) {
+    // For all children generate new aliases.
+    $options['alias children'] = FALSE;
+    unset($options['language']);
+    foreach (taxonomy_get_tree($term->vid, $term->tid) as $subterm) {
+      pathauto_taxonomy_term_update_alias($subterm, $op, $options);
+    }
+  }
+}
+
+//creating the alias: pathauto_create_alias($module, $op, $uri['path'], array('term' => $term), $term->vocabulary_machine_name, $options['language']);

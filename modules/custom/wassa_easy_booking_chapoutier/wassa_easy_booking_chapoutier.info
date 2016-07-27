@@ -1,0 +1,14 @@
+name = Wassa Custom - Easy Booking Chapoutier
+description = Une version simplifiée de réservation pour Drupal Rooms
+core = 7.x
+
+dependencies[] = rooms_booking
+dependencies[] = rooms_booking_manager
+dependencies[] = rooms_unit
+
+; Information added by Drupal.org packaging script on 2015-04-08
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "wassa_chapoutier"
+datestamp = "1428487686"
+

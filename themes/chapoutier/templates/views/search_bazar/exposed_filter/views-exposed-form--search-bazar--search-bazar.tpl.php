@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * This template handles the layout of the views exposed filter form.
+ *
+ * Variables available:
+ * - $widgets: An array of exposed form widgets. Each widget contains:
+ * - $widget->label: The visible label to print. May be optional.
+ * - $widget->operator: The operator for the widget. May be optional.
+ * - $widget->widget: The widget itself.
+ * - $sort_by: The select box to sort the view using an exposed form.
+ * - $sort_order: The select box with the ASC, DESC options to define order. May be optional.
+ * - $items_per_page: The select box with the available items per page. May be optional.
+ * - $offset: A textfield to define the offset of the view. May be optional.
+ * - $reset_button: A button to reset the exposed filter applied. May be optional.
+ * - $button: The submit button for the form.
+ * - $region_widgets: An array contains form widgets by regions.
+ *
+ * @ingroup views_templates
+ */
+?>
+
+<?php if (!empty($q)): ?>
+    <?php
+    // This ensures that, if clean URLs are off, the 'q' is added first so that
+    // it shows up first in the URL.
+    print $q;
+    ?>
+<?php endif; ?>
+
+    <div class="views-exposed-form">
+        <div class="row views-exposed-widgets clearfix">
+            <h2 class="title"><?php print t('Filter'); ?></h2>
+            <?php if (!empty($reset_button)): ?>
+                    <?php print $reset_button; ?>
+            <?php endif; ?>
+
+            <?php foreach ($widgets as $id => $widget): ?>
+                <div id="<?php print $widget->id; ?>-wrapper" class="col-md-12 views-exposed-widget views-widget-<?php print $id; ?>">
+                    <?php if (!empty($widget->label)): ?>
+                        <div class="collapsible-heading <?php print $widget->id; ?>" data-toggle="collapse" data-target="#<?php print $widget->label; ?>" aria-expanded="true" aria-controls="<?php print $widget->label; ?>">
+                            <?php print $widget->label; ?> <span class="caret"></span>
+                        </div>
+                    <?php endif; ?>
+                    <div class="collapse" id="<?php print $widget->label; ?>">
+
+                            <?php if (!empty($widget->operator)): ?>
+                                <div class="views-operator">
+                                    <?php print $widget->operator; ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="views-widget">
+                                <?php print $widget->widget; ?>
+                            </div>
+                            <?php if (!empty($widget->description)): ?>
+                                <div class="description">
+                                    <?php print $widget->description; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                </div>
+            <?php endforeach; ?>
+
+                <div class="col-md-12 views-exposed-widget views-widget views-widget-sort-by-order">
+                    <div class="row">
+                        <?php if (!empty($sort_by)): ?>
+                            <div class="col-md-6 views-exposed-widget views-widget-sort-by">
+                                <?php print $sort_by; ?>
+                            </div>
+                            <div class="col-md-6 views-exposed-widget views-widget-sort-order">
+                                <?php print $sort_order; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+            <?php if (!empty($items_per_page)): ?>
+                <div class="views-exposed-widget views-widget-per-page">
+                    <?php print $items_per_page; ?>
+                </div>
+            <?php endif; ?>
+            <?php if (!empty($offset)): ?>
+                <div class="views-exposed-widget views-widget-offset">
+                    <?php print $offset; ?>
+                </div>
+            <?php endif; ?>
+            <div class="views-exposed-widget views-submit-button">
+                <?php print $button; ?>
+            </div>
+        </div>
+    </div>

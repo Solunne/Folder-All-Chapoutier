@@ -1,0 +1,66 @@
+<?php
+
+function wassa_disclaimer_schema() {
+    $schema['wassa_disclaimer'] = array(
+        'description' => 'The base table for display disclaimer to users.',
+        'fields' => array(
+        	'nid' => array(
+        		'description' => 'The primary identifier for a disclaimer.',
+        		'type' => 'serial',
+        		'unsigned' => TRUE,
+        		'not null' => TRUE),
+        	'language_code' => array(
+        		'description' => 'The language code (ex: "en", "fr", etc.)',
+        		'type' => 'varchar',
+        		'length' => 7,
+        		'not null' => TRUE,
+        		'default' => ''),
+        	'message' => array(
+        		'description' => 'The message displayed to the user.',
+        		'type' => 'text',
+        		'not null' => FALSE),
+        	'display_mode' => array(
+        		'description' => 'The display mode used to display the disclaimer.',
+        		'type' => 'varchar',
+        		'length' => 30,
+        		'not null' => TRUE,
+        		'default' => ''),
+        	'redirect_url' => array(
+        		'description' => 'The URL used to redirect no adults users (ex: "/terms-use").',
+        		'type' => 'varchar',
+        		'length' => 30,
+        		'not null' => TRUE,
+        		'default' => ''),
+        	'legal_age' => array(
+        		'description' => 'The legal age to access to contents.',
+        		'type' => 'int',
+        		'unsigned' => TRUE,
+        		'not null' => TRUE),
+            'yes_text' => array(
+                'description' => 'The display mode used to display the disclaimer.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+                'default' => ''),
+            'no_text' => array(
+                'description' => 'The display mode used to display the disclaimer.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+                'default' => ''),
+            'submit_text' => array(
+                'description' => 'The display mode used to display the disclaimer.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+                'default' => '')
+    		),
+            'unique keys' => array(
+                'nid' => array('nid'),
+                'language_code' => array('language_code')
+            ),
+            'primary keys' => array('nid'),
+    	);
+
+    return $schema;
+}

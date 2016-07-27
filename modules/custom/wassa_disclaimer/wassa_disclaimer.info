@@ -1,0 +1,18 @@
+name = Wassa Disclaimer
+description = Fournit disclaimer sous forme de popup demandant si l'utilisateur est majeur.
+core = 7.x
+package = Wassa
+
+configure = admin/config/wassa/disclaimer
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Javascripts
+;;;;;;;;;;;;;;;;;;;;;
+scripts[] = js/jquery-birthday-picker.min.js
+scripts[] = js/moment.js
+scripts[] = js/disclaimer.js

@@ -1,0 +1,511 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: adelannoy
+ * Date: 10/05/16
+ * Time: 18:32
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function wassa_geolocation_menu() {
+    $items = array();
+
+    $items['admin/config/wassa/geolocation'] = array(
+        'title' => 'List geolocation redirection',
+        'description' => 'Configuration for Wassa Geolocation module',
+        'page callback' => 'wassa_geolocation_page',
+        'access arguments' => array('access administration pages'),
+    );
+    $items['ws/wassa/geolocation/json'] = array(
+        'page callback' => 'wassa_geolocation_json',
+        'access arguments' => array('access content'),
+    );
+    $items['admin/config/wassa/geolocation/add'] = array(
+        'title' => 'Add a geolocation redirection',
+        'description' => 'Configuration for Wassa Geolocation module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('wassa_geolocation_form'),
+        'access arguments' => array('access administration pages'),
+    );
+    $items['admin/config/wassa/geolocation/%wassa_geolocation/edit'] = array(
+        'title' => 'Edit a geolocation redirection',
+        'description' => 'Configuration for Wassa Geolocation module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('wassa_geolocation_form', 4),
+        'access arguments' => array('access administration pages'),
+    );
+    $items['admin/config/wassa/geolocation/%wassa_geolocation/delete'] = array(
+        'title' => 'Delete a geolocation redirection',
+        'description' => 'Configuration for Wassa Geolocation module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('wassa_geolocation_delete_form', 4),
+        'access arguments' => array('access administration pages'),
+    );
+
+    return $items;
+}
+
+/**
+ * Custom content function.
+ *
+ * @return
+ */
+function wassa_geolocation_contents() {
+    //Use Database API to retrieve geolocation redirection.
+    $query = db_select('wassa_geolocation', 'wg')
+        ->fields('wg', array('nid', 'country_code', 'redirect_url'))
+        ->orderBy('country_code', 'ASC')
+        ->execute();
+    return $query->fetchAllAssoc('nid', PDO::FETCH_ASSOC);
+}
+
+/**
+ * Load the geolocation redirection.
+ *
+ * @param {int} $nid - Nid of the geolocation redirection.
+ * @return {object} mixed - Return the geolocation redirection object depending to the $nid.
+ */
+function wassa_geolocation_load($nid) {
+    return db_query("SELECT * FROM {wassa_geolocation} WHERE nid = :nid", array(':nid' => $nid))->fetchObject();
+}
+
+/**
+ * Custom page callback function, declared in wassa_geolocation_menu().
+ */
+function wassa_geolocation_page() {
+    $headers = array(t("Id"), t("Country code"), t("Redirect URL"), t('Actions'));
+    $results = wassa_geolocation_contents();
+
+    $rows = array();
+    foreach ($results as $result) {
+        array_push($result, l(t('Edit'), 'admin/config/wassa/geolocation/'. $result['nid'] .'/edit') .' | ' . l(t('Delete'), 'admin/config/wassa/geolocation/'. $result['nid'] .'/delete'));
+        $rows[] = $result;
+    }
+
+
+    $page_array = array();
+    $page_array['wassa_geolocation_actions'] = array(
+        '#prefix' => '<ul class="action-links">',
+        '#markup' => '<li>' . l(t('Add a geolocation redirection'), 'admin/config/wassa/geolocation/add') . '</li>',
+        '#suffix' => '</ul>',
+    );
+
+    $page_array['wassa_geolocation_arguments'] = array(
+        '#theme' => 'table',
+        '#header' => $headers,
+        '#rows' => $rows,
+        '#empty' => 'No geolocation redirection, add a new one.'
+    );
+
+    return $page_array;
+}
+
+/**
+ * Web service used to get a geolocation redirection object.
+ *
+ * @param {string} $countryCode - ccTLD ISO 3166-1
+ * @return {object} mixed - Geolocation redirection object load from the DB.
+ */
+function wassa_geolocation_json($countryCode) {
+    $query = db_select('wassa_geolocation', 'wg')
+        ->fields('wg')
+        ->condition('country_code', $countryCode)
+        ->execute();
+
+    return drupal_json_output($query->fetchAssoc());
+}
+
+
+/**
+ * Page callback: Wassa geolocation settings
+ *
+ * @see wassa_geolocation_menu()
+ */
+function wassa_geolocation_form($form, &$form_state, $geolocation = NULL) {
+    if (is_null($geolocation)) {
+        $geolocation = new stdClass();
+        $geolocation->nid = FALSE;
+        $geolocation->country_code = '';
+        $geolocation->redirect_url = '';
+    }
+
+    $form['wassa_geolocation'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Edit geolocation redirection'),
+        '#weight' => -10,
+        '#collapsible' => FALSE,
+        '#collapsed' => FALSE,
+    );
+
+    $form['wassa_geolocation']['#item'] = $geolocation;
+    $form['wassa_geolocation']['country_code'] = array(
+        '#type' => 'select',
+        '#title' => t('Country'),
+        '#description' => t('Select a country.'),
+        '#size' => 1,
+        '#maxlength' => 2,
+        '#options' => getCCTLDs(),
+        '#default_value' => $geolocation->country_code,
+        '#required' => TRUE,
+    );
+    $form['wassa_geolocation']['redirect_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('URL redirect'),
+        '#description' => t('URL used to redirect the user to the correct domain depending to the country.'),
+        '#size' => 60,
+        '#maxlength' => 255,
+        '#default_value' => $geolocation->redirect_url,
+        '#required' => TRUE,
+    );
+
+
+    // Add buttons.
+    $form['actions'] = array('#type' => 'actions');
+    $form['actions']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save'),
+    );
+    // Add delete button only when we are editing a geolocation.
+    if (isset($geolocation->nid) && $geolocation->nid) {
+        $form['actions']['delete'] = array(
+            '#markup' => l(t('Delete'), 'admin/config/wassa/geolocation/' . $geolocation->nid . '/delete')
+        );
+    }
+    $form['actions']['cancel'] = array(
+        '#markup' => l(t('Cancel'), 'admin/config/wassa/geolocation'),
+    );
+
+
+    return $form;
+}
+
+/**
+ * Implements validation from the Form API.
+ *
+ * @param $form
+ *   A structured array containing the elements and properties of the form.
+ * @param $form_state
+ *   An array that stores information about the form's current state
+ *   during processing.
+ */
+function wassa_geolocation_form_validate($form, &$form_state){
+    $country_code = $form_state['values']['country_code'];
+    if (is_numeric($country_code)){
+        form_set_error('country_code', t('Numbers are not allowed in the country code.'));
+    }
+}
+
+/**
+ * Save configuration settings for wassa_geolocation module.
+ */
+function wassa_geolocation_form_submit($form, &$form_state) {
+    $geolocation = $form['wassa_geolocation']['#item'];
+
+    if (isset($geolocation->nid) && $geolocation->nid) {
+        db_update('wassa_geolocation') // Table name no longer needs {}
+        ->fields(array(
+            'country_code' => $form_state['values']['country_code'],
+            'redirect_url' => $form_state['values']['redirect_url'],
+        ))
+            ->condition('nid', $form_state['build_info']['args'][0]->nid)
+            ->execute();
+    } else {
+        db_insert('wassa_geolocation') // Table name no longer needs {}
+        ->fields(array(
+            'country_code' => $form_state['values']['country_code'],
+            'redirect_url' => $form_state['values']['redirect_url'],
+        ))
+            ->execute();
+    }
+    $form_state['redirect'] = 'admin/config/wassa/geolocation';
+}
+
+function wassa_geolocation_delete_form($form, &$form_state, $geolocation)
+{
+    $form['#item'] = $geolocation;
+
+    $form['header'] = array(
+        '#markup' => t('Are you sure you wish to delete the geolocation redirection with a country code of "@value" ?', array('@value' => $geolocation->country_code)),
+        '#prefix' => '',
+        '#suffix' => '',
+    );
+
+    $form['actions'] = array('#type' => 'actions');
+    $form['actions']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Delete'),
+    );
+    $form['actions']['cancel'] = array(
+        '#markup' => l(t('Cancel'), 'admin/config/wassa/geolocation'),
+    );
+    return $form;
+}
+
+function wassa_geolocation_delete_form_submit($form, &$form_state)
+{
+    $geolocation = $form['#item'];
+
+    db_delete('wassa_geolocation')
+        ->condition('nid', $geolocation->nid)
+        ->execute();
+
+    $form_state['redirect'] = 'admin/config/wassa/geolocation';
+    drupal_set_message(t('The geolocation redirection has been deleted'));
+}
+
+/**
+ * @return array - Return an array containing the ccTLDs ISO 3166-1.
+ */
+function getCCTLDs() {
+    $countries = array(
+        'AF' => 'Afghanistan',
+        'AX' => 'Aland Islands',
+        'AL' => 'Albania',
+        'DZ' => 'Algeria',
+        'AS' => 'American Samoa',
+        'AD' => 'Andorra',
+        'AO' => 'Angola',
+        'AI' => 'Anguilla',
+        'AQ' => 'Antarctica',
+        'AG' => 'Antigua And Barbuda',
+        'AR' => 'Argentina',
+        'AM' => 'Armenia',
+        'AW' => 'Aruba',
+        'AU' => 'Australia',
+        'AT' => 'Austria',
+        'AZ' => 'Azerbaijan',
+        'BS' => 'Bahamas',
+        'BH' => 'Bahrain',
+        'BD' => 'Bangladesh',
+        'BB' => 'Barbados',
+        'BY' => 'Belarus',
+        'BE' => 'Belgium',
+        'BZ' => 'Belize',
+        'BJ' => 'Benin',
+        'BM' => 'Bermuda',
+        'BT' => 'Bhutan',
+        'BO' => 'Bolivia',
+        'BA' => 'Bosnia And Herzegovina',
+        'BW' => 'Botswana',
+        'BV' => 'Bouvet Island',
+        'BR' => 'Brazil',
+        'IO' => 'British Indian Ocean Territory',
+        'BN' => 'Brunei Darussalam',
+        'BG' => 'Bulgaria',
+        'BF' => 'Burkina Faso',
+        'BI' => 'Burundi',
+        'KH' => 'Cambodia',
+        'CM' => 'Cameroon',
+        'CA' => 'Canada',
+        'CV' => 'Cape Verde',
+        'KY' => 'Cayman Islands',
+        'CF' => 'Central African Republic',
+        'TD' => 'Chad',
+        'CL' => 'Chile',
+        'CN' => 'China',
+        'CX' => 'Christmas Island',
+        'CC' => 'Cocos (Keeling) Islands',
+        'CO' => 'Colombia',
+        'KM' => 'Comoros',
+        'CG' => 'Congo',
+        'CD' => 'Congo, Democratic Republic',
+        'CK' => 'Cook Islands',
+        'CR' => 'Costa Rica',
+        'CI' => 'Cote D\'Ivoire',
+        'HR' => 'Croatia',
+        'CU' => 'Cuba',
+        'CY' => 'Cyprus',
+        'CZ' => 'Czech Republic',
+        'DK' => 'Denmark',
+        'DJ' => 'Djibouti',
+        'DM' => 'Dominica',
+        'DO' => 'Dominican Republic',
+        'EC' => 'Ecuador',
+        'EG' => 'Egypt',
+        'SV' => 'El Salvador',
+        'GQ' => 'Equatorial Guinea',
+        'ER' => 'Eritrea',
+        'EE' => 'Estonia',
+        'ET' => 'Ethiopia',
+        'FK' => 'Falkland Islands (Malvinas)',
+        'FO' => 'Faroe Islands',
+        'FJ' => 'Fiji',
+        'FI' => 'Finland',
+        'FR' => 'France',
+        'GF' => 'French Guiana',
+        'PF' => 'French Polynesia',
+        'TF' => 'French Southern Territories',
+        'GA' => 'Gabon',
+        'GM' => 'Gambia',
+        'GE' => 'Georgia',
+        'DE' => 'Germany',
+        'GH' => 'Ghana',
+        'GI' => 'Gibraltar',
+        'GR' => 'Greece',
+        'GL' => 'Greenland',
+        'GD' => 'Grenada',
+        'GP' => 'Guadeloupe',
+        'GU' => 'Guam',
+        'GT' => 'Guatemala',
+        'GG' => 'Guernsey',
+        'GN' => 'Guinea',
+        'GW' => 'Guinea-Bissau',
+        'GY' => 'Guyana',
+        'HT' => 'Haiti',
+        'HM' => 'Heard Island & Mcdonald Islands',
+        'VA' => 'Holy See (Vatican City State)',
+        'HN' => 'Honduras',
+        'HK' => 'Hong Kong',
+        'HU' => 'Hungary',
+        'IS' => 'Iceland',
+        'IN' => 'India',
+        'ID' => 'Indonesia',
+        'IR' => 'Iran, Islamic Republic Of',
+        'IQ' => 'Iraq',
+        'IE' => 'Ireland',
+        'IM' => 'Isle Of Man',
+        'IL' => 'Israel',
+        'IT' => 'Italy',
+        'JM' => 'Jamaica',
+        'JP' => 'Japan',
+        'JE' => 'Jersey',
+        'JO' => 'Jordan',
+        'KZ' => 'Kazakhstan',
+        'KE' => 'Kenya',
+        'KI' => 'Kiribati',
+        'KR' => 'Korea',
+        'KW' => 'Kuwait',
+        'KG' => 'Kyrgyzstan',
+        'LA' => 'Lao People\'s Democratic Republic',
+        'LV' => 'Latvia',
+        'LB' => 'Lebanon',
+        'LS' => 'Lesotho',
+        'LR' => 'Liberia',
+        'LY' => 'Libyan Arab Jamahiriya',
+        'LI' => 'Liechtenstein',
+        'LT' => 'Lithuania',
+        'LU' => 'Luxembourg',
+        'MO' => 'Macao',
+        'MK' => 'Macedonia',
+        'MG' => 'Madagascar',
+        'MW' => 'Malawi',
+        'MY' => 'Malaysia',
+        'MV' => 'Maldives',
+        'ML' => 'Mali',
+        'MT' => 'Malta',
+        'MH' => 'Marshall Islands',
+        'MQ' => 'Martinique',
+        'MR' => 'Mauritania',
+        'MU' => 'Mauritius',
+        'YT' => 'Mayotte',
+        'MX' => 'Mexico',
+        'FM' => 'Micronesia, Federated States Of',
+        'MD' => 'Moldova',
+        'MC' => 'Monaco',
+        'MN' => 'Mongolia',
+        'ME' => 'Montenegro',
+        'MS' => 'Montserrat',
+        'MA' => 'Morocco',
+        'MZ' => 'Mozambique',
+        'MM' => 'Myanmar',
+        'NA' => 'Namibia',
+        'NR' => 'Nauru',
+        'NP' => 'Nepal',
+        'NL' => 'Netherlands',
+        'AN' => 'Netherlands Antilles',
+        'NC' => 'New Caledonia',
+        'NZ' => 'New Zealand',
+        'NI' => 'Nicaragua',
+        'NE' => 'Niger',
+        'NG' => 'Nigeria',
+        'NU' => 'Niue',
+        'NF' => 'Norfolk Island',
+        'MP' => 'Northern Mariana Islands',
+        'NO' => 'Norway',
+        'OM' => 'Oman',
+        'PK' => 'Pakistan',
+        'PW' => 'Palau',
+        'PS' => 'Palestinian Territory, Occupied',
+        'PA' => 'Panama',
+        'PG' => 'Papua New Guinea',
+        'PY' => 'Paraguay',
+        'PE' => 'Peru',
+        'PH' => 'Philippines',
+        'PN' => 'Pitcairn',
+        'PL' => 'Poland',
+        'PT' => 'Portugal',
+        'PR' => 'Puerto Rico',
+        'QA' => 'Qatar',
+        'RE' => 'Reunion',
+        'RO' => 'Romania',
+        'RU' => 'Russian Federation',
+        'RW' => 'Rwanda',
+        'BL' => 'Saint Barthelemy',
+        'SH' => 'Saint Helena',
+        'KN' => 'Saint Kitts And Nevis',
+        'LC' => 'Saint Lucia',
+        'MF' => 'Saint Martin',
+        'PM' => 'Saint Pierre And Miquelon',
+        'VC' => 'Saint Vincent And Grenadines',
+        'WS' => 'Samoa',
+        'SM' => 'San Marino',
+        'ST' => 'Sao Tome And Principe',
+        'SA' => 'Saudi Arabia',
+        'SN' => 'Senegal',
+        'RS' => 'Serbia',
+        'SC' => 'Seychelles',
+        'SL' => 'Sierra Leone',
+        'SG' => 'Singapore',
+        'SK' => 'Slovakia',
+        'SI' => 'Slovenia',
+        'SB' => 'Solomon Islands',
+        'SO' => 'Somalia',
+        'ZA' => 'South Africa',
+        'GS' => 'South Georgia And Sandwich Isl.',
+        'ES' => 'Spain',
+        'LK' => 'Sri Lanka',
+        'SD' => 'Sudan',
+        'SR' => 'Suriname',
+        'SJ' => 'Svalbard And Jan Mayen',
+        'SZ' => 'Swaziland',
+        'SE' => 'Sweden',
+        'CH' => 'Switzerland',
+        'SY' => 'Syrian Arab Republic',
+        'TW' => 'Taiwan',
+        'TJ' => 'Tajikistan',
+        'TZ' => 'Tanzania',
+        'TH' => 'Thailand',
+        'TL' => 'Timor-Leste',
+        'TG' => 'Togo',
+        'TK' => 'Tokelau',
+        'TO' => 'Tonga',
+        'TT' => 'Trinidad And Tobago',
+        'TN' => 'Tunisia',
+        'TR' => 'Turkey',
+        'TM' => 'Turkmenistan',
+        'TC' => 'Turks And Caicos Islands',
+        'TV' => 'Tuvalu',
+        'UG' => 'Uganda',
+        'UA' => 'Ukraine',
+        'AE' => 'United Arab Emirates',
+        'GB' => 'United Kingdom',
+        'US' => 'United States',
+        'UM' => 'United States Outlying Islands',
+        'UY' => 'Uruguay',
+        'UZ' => 'Uzbekistan',
+        'VU' => 'Vanuatu',
+        'VE' => 'Venezuela',
+        'VN' => 'Viet Nam',
+        'VG' => 'Virgin Islands, British',
+        'VI' => 'Virgin Islands, U.S.',
+        'WF' => 'Wallis And Futuna',
+        'EH' => 'Western Sahara',
+        'YE' => 'Yemen',
+        'ZM' => 'Zambia',
+        'ZW' => 'Zimbabwe',
+    );
+
+    return $countries;
+}

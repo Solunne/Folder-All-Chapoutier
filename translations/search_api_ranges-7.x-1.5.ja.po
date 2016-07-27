@@ -1,0 +1,28 @@
+# Japanese translation of Search API ranges (7.x-1.5)
+# Copyright (c) 2014 by the Japanese translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Search API ranges (7.x-1.5)\n"
+"POT-Creation-Date: 2014-02-16 18:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Prefix"
+msgstr "接頭語"
+msgid "Suffix"
+msgstr "接尾語"
+msgid "Search"
+msgstr "検索"
+msgid "Name"
+msgstr "名前"
+msgid "All"
+msgstr "すべて"
+msgid "To"
+msgstr "宛先"
+msgid "From"
+msgstr "送信元"

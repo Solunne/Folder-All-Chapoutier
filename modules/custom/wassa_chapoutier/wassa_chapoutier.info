@@ -1,0 +1,12 @@
+name = Wassa Chapoutier
+description = Module de configuration Wassa pour le site Chapoutier.
+core = 7.x
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Javascripts
+;;;;;;;;;;;;;;;;;;;;;

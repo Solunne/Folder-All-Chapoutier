@@ -1,0 +1,16 @@
+name = Wassa Geolocation
+description = Permet de configurer des redirections de domaines en fonction du pays de l'utilisateur.
+core = 7.x
+package = Wassa
+
+configure = admin/config/wassa/geolocation
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Javascripts
+;;;;;;;;;;;;;;;;;;;;;
+scripts[] = js/geolocation.js

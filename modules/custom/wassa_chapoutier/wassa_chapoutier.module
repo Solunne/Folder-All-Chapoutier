@@ -1,0 +1,732 @@
+<?php
+function wassa_chapoutier_pathauto_alias_alter(&$alias, &$context) {
+    $alias = removeAccents($alias);
+}
+
+function removeAccents($str) {
+    $a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ');
+  $b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o');
+  return str_replace($a, $b, $str);
+}
+
+// Override template cart
+
+function wassa_chapoutier_theme() {
+    $themes['commerce_line_item_summary'] = array(
+        'render element' => 'commerce-line-item-summary',
+        'template' => 'templates/commerce-line-item-summary',
+    );
+
+    $themes['views_view__commerce_cart_block'] = array(
+        'template'  => 'templates/views-view--commerce-cart-block',
+        'original hook' => 'views_view',
+        'preprocess functions' => array(
+            'template_preprocess',
+            'template_preprocess_views_view',
+        ),
+        'arguments' => array('view' => NULL),
+    );
+
+    return $themes;
+}
+
+function wassa_chapoutier_form($form, &$form_state) {
+
+    // Get the country code from the user's IP Location.
+    $ipCountryCode = ip2country_get_country(ip_address());
+    // Get the country code from the user's cookie.
+    $shipCountry = (isset($_COOKIE['shipping_country']) && $_COOKIE['shipping_country']) ? $_COOKIE['shipping_country'] : $ipCountryCode; 
+    $sessionShippingCountry = (isset($_COOKIE['shipping_country'])) ? $_COOKIE['shipping_country'] : '';
+    if (isset($_COOKIE['shipping_country']) && $_COOKIE['shipping_country'] != '') {
+        $sessionShippingCountry = $_COOKIE['shipping_country'];
+    } else {
+        $sessionShippingCountry = ($ipCountryCode == 'FR') ? $ipCountryCode : '';
+    }
+
+    // Prepare the list of the <option> for the <select> field.
+    $countries = array_merge(array('' => t('Choose your shipping country')), getAvailableShippingCountries());
+
+    // Define the select containing the shipping country code.
+    $form['shipping_country_selection'] = array(
+        '#type' => 'select',
+        '#title' => t('Shipping') . ' :',
+        '#options' => $countries,
+        '#default_value' => $shipCountry,
+        '#description' => '',
+        '#attributes' => array(
+            'data-shipping-country' => array($sessionShippingCountry),
+            'data-user-country' => array($ipCountryCode),
+        ),
+    );
+
+    // Hide the submit button but must be present in the form to hire 'submitted' flag.
+    $form['actions'] = array('#type' => 'actions', '#attributes' => array('class' => array('hidden')));
+    $form['actions']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save'),
+    );
+    $form['#attached']['js'] = array(
+        drupal_get_path('module', 'wassa_chapoutier') . '/theme/js/shipping_country_selection.js',
+    );
+
+    return $form;
+}
+
+function wassa_chapoutier_form_submit($form, &$form_state) {
+    // Store the selected shipping country code in a cookie.
+    setcookie('shipping_country', $form_state['values']['shipping_country_selection']);
+}
+
+
+// Overide block language
+function wassa_chapoutier_language_switch_links_alter(array &$links, $type, $path) {
+    global $language;
+    unset($links[$language->language]);
+}
+
+function wassa_chapoutier_form_userpoints_admin_settings_alter(&$form, &$form_state, $form_id) {
+    $group = "Points expiration";
+    $form[$group][USERPOINTS_EXPIREAFTER_DATE] = array(
+        '#type' => 'select',
+        '#title' => t('Expire !points after', userpoints_translation()),
+        '#description' => t('Once !points have been obtained by the user
+                          they will expire according to this setting', userpoints_translation()),
+        '#options' => wassa_chapoutier_expiry_dates(),
+        '#default_value' => variable_get(USERPOINTS_EXPIREAFTER_DATE, NULL),
+    );
+}
+
+/**
+ * Override the expiry dates
+ */
+function wassa_chapoutier_expiry_dates() {
+    return array(
+        NULL => 'Never',
+        3600 => 'One hour',
+        86400 => 'One Day',
+        604800 => 'One Week',
+        1209600 => 'Two Weeks',
+        2419200 => 'Four Weeks',
+        14515200 => 'Six Months',
+        31536000 => '365 Days',
+    );
+}
+
+function theme_links__locale_block(&$variables) {
+    $links = array();
+
+
+    foreach($variables['links'] as $link)
+    {
+        $link['title'] = $link['language']->language;
+        $links[] = $link;
+    }
+    $class = "language-switcher-{$links->provider} test-bt";
+    $variables['class'] = array($class);
+
+    $variables['links'] = $links;
+
+    $content = theme_links($variables);
+    return $content;
+}
+
+function wassa_chapoutier_commerce_checkout_complete($order) {
+
+    // If the user is logged.
+    // if (user_is_logged_in()) {
+    //     // Initialize the cashback variable that will be use with grant userpoint method.
+    //     $mainCashback = 0;
+    //     $chbkGeneral = 0;
+    //     $chbkPeriod = 0;
+    //     $chbkTaxoGeneral = 0;
+    //     $chbkTaxoPeriod = 0;
+    //     $now = new DateTime();
+
+    //     // Iterate through every commerce line item added in product.
+    //     foreach (field_get_items('commerce_order', $order, 'commerce_line_items') as $line_item_id) {
+    //         // Load commerce line item by line item id.
+    //         $line_item = commerce_line_item_load($line_item_id['line_item_id']);
+
+    //         // We do not want to include shipping cost in userpoints.
+    //         if ($line_item->type != 'shipping') {
+
+    //             // Load commerce product by product id.
+    //             $product = commerce_product_load(field_get_items('commerce_line_item', $line_item, 'commerce_product')[0]['product_id']);
+    //             // Get the product price.
+    //             $amount = intval($product->commerce_price['und'][0]['amount']);
+
+    //             // Cashback Product
+    //             if (!empty($product->field_general_cashback)) {
+    //                 // Get the potential cashback percentage.
+    //                 $chbkGeneral = floatval($product->field_general_cashback['und'][0]['value']);
+    //             }
+
+    //             // Cashback Product
+    //             if (!empty($product->field_periodical_cashback)) {
+    //                 // Fetch the field collection to get all cashback periods.
+    //                 foreach ($product->field_periodical_cashback['und'] as $cashback) {
+    //                     $chbk = field_collection_field_get_entity($cashback);
+    //                     // Get the start date and the end date to determine the activation period.
+    //                     $startdate = new DateTime($chbk->field_activation_period['und'][0]['value']);
+    //                     $enddate = new DateTime($chbk->field_activation_period['und'][0]['value2']);
+
+    //                     // If there is a periodical cashback.
+    //                     if ($startdate < $now &&  $now < $enddate) {
+    //                         $chbkPeriod = floatval($chbk->field_cashback_value['und'][0]['value']);
+    //                     }
+    //                 }
+    //             }
+
+    //             // Cashback Term
+    //             if (!empty($product->field_cashback_category)) {
+    //                 $chbkTaxo = taxonomy_term_load($product->field_cashback_category['und'][0]['tid']);
+
+    //                 if (!empty($chbkTaxo->field_general_cashback)) {
+    //                     $chbkTaxoGeneral = $chbkTaxo->field_general_cashback['und'][0]['value'];
+    //                 }
+
+    //                 if (!empty($chbkTaxo->field_periodical_cashback)) {
+    //                     // Fetch the field collection to get all cashback periods.
+    //                     foreach ($chbkTaxo->field_periodical_cashback['und'] as $cashback) {
+    //                         $chbk = field_collection_field_get_entity($cashback);
+    //                         // Get the start date and the end date to determine the activation period.
+    //                         $startdate = new DateTime($chbk->field_activation_period['und'][0]['value']);
+    //                         $enddate = new DateTime($chbk->field_activation_period['und'][0]['value2']);
+
+    //                         // If there is a periodical cashback.
+    //                         if ($startdate < $now &&  $now < $enddate) {
+    //                             $chbkTaxoPeriod = floatval($chbk->field_cashback_value['und'][0]['value']);
+    //                         }
+    //                     }
+    //                 }
+    //             }
+
+
+    //             // If periodical cashback is setted, use it.
+    //             if ($chbkPeriod > 0) {
+    //                 $mainCashback += ($amount * $chbkPeriod) / 100;
+    //             } else if ($chbkGeneral > 0) {
+    //                 $mainCashback += ($amount * $chbkGeneral) / 100;
+    //             } else if ($chbkTaxoPeriod > 0) {
+    //                 $mainCashback += ($amount * $chbkTaxoPeriod) / 100;
+    //             } else if ($chbkTaxoGeneral > 0) {
+    //                 $mainCashback += ($amount * $chbkTaxoGeneral) / 100;
+    //             }
+    //         }
+    //     }
+
+    //     // Create parameters.
+    //     $params = array(
+    //         'uid' => $order->uid,
+    //         'points' => $mainCashback,
+    //         'moderate' => FALSE,
+    //         'tid' => userpoints_get_default_tid()
+    //     );
+
+    //     // Grant userpoints programmatically.
+    //     userpoints_userpointsapi($params);
+    // }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function wassa_chapoutier_form_user_login_alter(&$form, &$form_state, $form_id)
+{
+    $form['actions']['#suffix']  = '</div>';
+    $form['name']['#attributes']['placeholder'] = t( 'Email address' );
+    $form['pass']['#attributes']['placeholder'] = t( 'Password' );
+    $form['name']['#title_display'] = 'invisible';
+    $form['pass']['#title_display'] = 'invisible';
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function wassa_chapoutier_module_implements_alter(&$implementations, $hook)
+{
+    if ($hook == 'form_alter' && isset($implementations['wassa_chapoutier'])) {
+        $group = $implementations['wassa_chapoutier'];
+        unset($implementations['wassa_chapoutier']);
+        $implementations['wassa_chapoutier'] = $group;
+    }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function wassa_chapoutier_form_alter(&$form, &$form_state, $form_id)
+{
+    //var_dump($form_id);
+    switch ($form_id) {
+        case 'commerce_checkout_form_login':
+            $form['login_pane']['#prefix'] = '<div class="col-xs-12 col-md-6 connection"><h4 class="title-section text-center"><span class="line">' . t('Log in') .'</span></h4><div class="inside login-site">';
+            $form['login_pane']['#suffix'] = '<button type="submit" id="edit-submit" name="op" value="' . t('Log in') . '" class="btn btn-default form-submit">'. t('Log in') . '</button></div></div>';
+            $form['login_pane']['name']['#attributes']['placeholder'] = t( 'Email address' );
+            $form['login_pane']['pass']['#attributes']['placeholder'] = t( 'Password' );
+            $form['login_pane']['name']['#title_display'] = 'invisible';
+            $form['login_pane']['pass']['#title_display'] = 'invisible';
+
+            $form['continue_pane']['#prefix'] = '<div class="col-xs-12 col-md-6 connection"><h4 class="title-section text-center"><span class="line">' . t('First visit') . '</span></h4><div class="inside first-visit">';
+            $form['continue_pane']['#suffix'] = '</div></div>';
+            $form['continue_pane']['register']['#markup'] = '<a href="'. url('/user/register', array('query' => array('destination' => 'checkout'))) .'" class="btn btn-default checkout-newaccount">' . t('Create new account') . '</a>';
+
+            break;
+        case 'views_form_booking_checkout_form_default':
+            if (isset($form['edit_quantity'])) {
+                $form['#attached']['js'][] = drupal_get_path('module', 'commerce_extra_quantity') . '/commerce_extra_quantity.js';
+                $form['#attached']['css'][] = drupal_get_path('module', 'commerce_extra_quantity') . '/commerce_extra_quantity.css';
+                foreach ($form['edit_quantity'] as $key => $value) {
+                    if (is_numeric($key) && drupal_substr($key, 0, 1) != '#' && is_array($value)) {
+                        $form['edit_quantity'][$key]['#theme_wrappers'] = array('quantity_plusminus_wrapper', 'form_element');
+                    }
+                }
+            }
+            break;
+        case 'user_register_form':
+            $form['actions']['submit']['#value'] = t("Validate");
+            $form['actions']['submit']['#suffix'] = '';
+            break;
+        case 'user_profile_form':
+            $form['actions']['submit']['#prefix'] = '<div class="col-xs-12 help-reset">
+            <p>' . t('To make your password stronger:') . '</p>
+            <ul>
+                <li>' . t('Make it at least 6 characters') . '</li>
+                <li>' . t('Add lowercase letters') . '</li>
+                <li>' . t('Add uppercase letters') . '</li>
+                <li>' . t('Add numbers') . '</li>
+                <li>' . t('Add punctuation') . '</li>
+            </ul></div>';
+            $form['actions']['submit']['#value'] = t('Save and log in');
+            break;
+        case 'user_pass':
+            $form['name']['#attributes']['placeholder'] = t( 'Email address' );
+            break;
+    }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function wassa_chapoutier_block_info() {
+    $blocks['shop_advantages'] = array(
+        // The name that will appear in the block list.
+        'info' => t('Shop advantages'),
+        'cache' => DRUPAL_CACHE_PER_ROLE,
+    );
+    $blocks['shipping_country_selection'] = array(
+        // The name that will appear in the block list.
+        'info' => t('Shipping country selection'),
+        'cache' => DRUPAL_CACHE_PER_ROLE,
+    );
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function wassa_chapoutier_block_view($delta = '') {
+    $block = array();
+
+    switch($delta) {
+        case 'shop_advantages' :
+            $block['content'] = wassa_chapoutier_shop_advantages_block_content();
+            break;
+        case 'shipping_country_selection' :
+            $block['content'] = shipping_country_selection_block_content();
+            break;
+    }
+
+    return $block;
+}
+
+/**
+ * Generate the HTML content of the weather block.
+ */
+function wassa_chapoutier_shop_advantages_block_content() {
+    $output = '';
+    $output .= '<div class="col-xs-12 col-md-10 col-md-offset-1 shop_advantages">';
+    $output .= '<div class="row">';
+    $output .= '<div class="col-xs-6 col-md-3 advantage bottles"><span class="tiret"></span><h6 class="text-center">' . t('Free delivery from 24 bottles') . '</h6></div>';
+    $output .= '<div class="col-xs-6 col-md-3 advantage days"><span class="tiret"></span><h6 class="text-center">' . t('Delivery in 5 days') . '</h6></div>';
+    $output .= '<div class="col-xs-6 col-md-3 advantage paiement"><span class="tiret"></span><h6 class="text-center">' . t('Secure payment') . '</h6></div>';
+    $output .= '<div class="col-xs-6 col-md-3 advantage cashback"><span class="tiret"></span><h6 class="text-center">' . t('Cashback to use on your next order') . '</h6></div>';
+    $output .= '</div>';
+    $output .= '</div>';
+
+    return $output;
+}
+
+/**
+ * @return string
+ */
+function shipping_country_selection_block_content() {
+    $form = drupal_get_form('wassa_chapoutier_form');
+    $countries = country_get_list();
+    $userIp = ip_address();
+    $userIpCountryCode = ip2country_get_country($userIp);
+    $userIpCountryLabel = $countries[$userIpCountryCode];
+    $modalContent = '';
+    $backdropEvent = 'false';
+
+    $sessionShippingCountry = (isset($_COOKIE['shipping_country'])) ? $_COOKIE['shipping_country'] : '';
+
+    if ($userIpCountryCode == 'FR' || $userIpCountryCode == $sessionShippingCountry) {
+        $_COOKIE['shipping_country'] = $userIpCountryCode;
+    } else {
+        $_COOKIE['shipping_country'] = '';
+    }
+
+    // Shipping not available.
+    if (!in_array($userIpCountryCode, array_keys(getAvailableShippingCountries()))) {
+        $winesLink = '<a id="shipping-country-wine" href="' . url(drupal_get_path_alias('shop/wines')) . '">' . t('Click here') . '</a>';
+        $gitesLink = '<a href="http://www.chapoutier-gites.com/" target="_blank">http://www.chapoutier-gites.com/</a>';
+        $activitiesLink = '<a href="http://www.chapoutier-ecole.com/" target="_blank">http://www.chapoutier-ecole.com/</a>';
+
+        $modalContent .= '<div class="shipping-country-bold">' . t('WE DO NOT SHIP TO YOUR COUNTRY DIRECTLY FROM OUR SITE.') . '</div>';
+        $modalContent .= '<div>'. t('Discover our products without ordering online') . ' : ' . $winesLink . '</div>';
+        $modalContent .= '<div>'. t('Select another shipping country')  . ' : ' . '</div>';
+        $modalContent .= drupal_render($form);
+        $modalContent .= '<div>'. t('Book accommodation with M. CHAPOUTIER') . ' : ' . $gitesLink . '</div>';
+        $modalContent .= '<div>'. t('Book an activity with M. CHAPOUTIER')  . ' : ' . $activitiesLink . '</div>';
+        $backdropEvent = 'true';
+    }
+    // Shipping available and not in France.
+    else if ($userIpCountryCode != 'FR') {
+        $modalContent .= '<div>'. t('Please confirm your shipping country')  . ' : ' . '</div>';
+        $modalContent .= drupal_render($form);
+    }
+
+    $content = '';
+    $content .= '<div class="modal fade shipping-country" id="shipping-country-block-content" tabindex="-1" role="dialog" data-shipping-country="' . $sessionShippingCountry . '" data-backdrop-click="' . $backdropEvent . '">';
+    $content .= '<div class="modal-dialog" role="document">';
+    $content .= '<div class="modal-content">';
+    $content .= '<div class="modal-header">';
+    $content .= '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+    $content .= '<h4 class="modal-title" id="myModalLabel">' . t('Shipping country') . '</h4>';
+    $content .= '</div>';
+    $content .= '<div class="modal-body">';
+    $content .= '<div>' . t('You are currently located in') . ' : <span class="shipping-country-bold">' . t($userIpCountryLabel) . '</span></div>';
+    $content .= $modalContent;
+    $content .= '</div>';
+    $content .= '</div>';
+    $content .= '</div>';
+    $content .= '</div>';
+
+    return $content;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function wassa_chapoutier_field_formatter_info() {
+    return array(
+        // the key must be unique, so it's best to prefix with your module's name.
+        'wassa_chapoutier_price' => array(
+            'label' => t('Price depending the coeff'),
+            'field types' => array('commerce_price'),
+            'settings' => array(
+                'calculation' => TRUE,
+                'alternative_text_for_zero_price' => '',
+                'text_format' => NULL,
+                'raw' => FALSE,
+            ),
+        ),
+        'wassa_chapoutier_price_tva' => array(
+            'label' => t('Price with TVA'),
+            'field types' => array('commerce_price'),
+            'settings' => array(
+                'calculation' => TRUE,
+                'alternative_text_for_zero_price' => '',
+                'text_format' => NULL,
+                'raw' => FALSE,
+            ),
+        ),
+    );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function wassa_chapoutier_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display)
+{
+    $element = array();
+
+    // Loop through each price value in this field.
+    foreach ($items as $delta => $item) {
+        // Do not render a price if the amount is NULL (i.e. non-zero empty value).
+        if (is_null($item['amount'])) {
+            // TODO: Consider if we should render as N/A or something indicating a
+            // price was not available as opposed to just leaving a blank.
+            continue;
+        }
+
+        switch ($display['type']) {
+            // Re-calculate the price with the multiplying coefficient.
+            case 'wassa_chapoutier_price':
+
+                $coefficient = getMultiplyingCoefficient($entity);
+
+                $element[$delta] = array(
+                    '#markup' => commerce_currency_format(intval($item['amount']) * $coefficient, $item['currency_code'], $entity),
+                );
+                break;
+            case 'wassa_chapoutier_price_tva':
+
+                // $tva = 1.2;
+                $tva = 1;
+                // switch ($_COOKIE['shipping_country']) {
+                //     case 'BE':
+                //     case 'NL':
+                //     case 'ES':
+                //         $tva = 1.21;
+                //         break;
+                //     case 'DE':
+                //         $tva = 1.19;
+                //         break;
+                //     case 'IT':
+                //         $tva = 1.22;
+                //         break;
+                //     case 'LU':
+                //         $tva = 1.17;
+                //         break;
+                // }
+
+                $element[$delta] = array(
+                    '#markup' => commerce_currency_format(intval($item['amount']) * $tva, $item['currency_code'], $entity),
+                );
+                break;
+        }
+    }
+
+    return $element;
+}
+
+//alter the price in list and single product page
+function wassa_chapoutier_product_calculate_sell_price_line_item_alter($line_item) {
+
+    $product = commerce_product_load($line_item->commerce_product[LANGUAGE_NONE][0]['product_id']);
+
+    if ($product) {
+        $coefficient = getMultiplyingCoefficient($product);
+    }
+
+    $line_item->commerce_unit_price[LANGUAGE_NONE]['0']['amount'] *= $coefficient;
+
+}
+
+//alter the price in cart & order
+function wassa_chapoutier_commerce_cart_line_item_refresh($line_item, $order_wrapper) {
+
+    $product = commerce_product_load($line_item->commerce_product[LANGUAGE_NONE][0]['product_id']);
+
+    if ($product) {
+        $coefficient = getMultiplyingCoefficient($product);
+    }
+    //alter the base_price component
+    $line_item->commerce_unit_price[LANGUAGE_NONE]['0']['data']['components']['0']['price']['amount'] *= $coefficient;
+
+}
+
+function wassa_chapoutier_preprocess_views_view(&$vars) {
+	global $user;
+	$view = $vars['view'];
+	
+	if ($view->name == 'commerce_backoffice_user_orders' || $view->name == 'commerce_user_orders') {
+		//dpm($view->result);
+		// Get User CLCLI (old user ID)
+		$result = $query = db_select('field_data_field_clcli', 'c')
+		      ->fields('c', array('field_clcli_value'))
+		      ->condition('c.entity_id', $user->uid, '=')
+		      ->execute()
+		      ->fetchAll();
+		
+		$clcli = $result[0]->field_clcli_value;
+		
+		if ($clcli) {
+			$query = db_select('w3_baskets', 'b');
+			$query ->join('w3_payments', 'p', 'b.number=p.basketNumber');
+			$oldOrders = $query
+		      ->fields('b', array('number', 'amount'))
+		      ->fields('p', array('date', 'amount'))
+		      ->condition('b.customerCode', "$clcli", '=')
+		      ->condition('p.finalize', 1, '=')
+		      ->execute()
+		      ->fetchAll();
+		      
+		    if (count($oldOrders) > 0) {
+			    $vars['old_orders'] = $oldOrders;
+		    }
+		}
+	}
+}
+
+function wassa_chapoutier_preprocess_views_view_table(&$vars) {
+	$view = $vars['view'];
+	//echo $view->name;
+	
+	if ($view->name == 'commerce_backoffice_user_orders' || $view->name == 'commerce_user_orders') {
+		//dpm($view->result);
+		// Get User CLCLI (old user ID)
+		$result = $query = db_select('field_data_field_clcli', 'c')
+		      ->fields('c', array('field_clcli_value'))
+		      ->condition('c.entity_id', $user->uid, '=')
+		      ->execute()
+		      ->fetchAll();
+		
+		$clcli = $result[0]->field_clcli_value;
+		
+		if ($clcli) {
+			$query = db_select('w3_baskets', 'b');
+			$query ->join('w3_payments', 'p', 'b.number=p.basketNumber');
+			$oldOrders = $query
+		      ->fields('b', array('number', 'amount'))
+		      ->fields('p', array('date', 'amount'))
+		      ->condition('b.customerCode', "$clcli", '=')
+		      ->condition('p.finalize', 1, '=')
+		      ->execute()
+		      ->fetchAll();
+		      
+		    if (count($oldOrders) > 0) {
+			    $vars['old_orders'] = $oldOrders;
+		    }
+		}
+	}
+}
+
+/**
+ * Get the multiplying coefficient from product.
+ * @param $product - Product object.
+ * @return float|int - The localized multiplying coefficient.
+ */
+function getMultiplyingCoefficient($product) {
+    // Check if the shipping country is setted.
+    $shipping_country = (isset($_COOKIE['shipping_country'])) ? $_COOKIE['shipping_country'] : 'FR';
+    $coefficient = 1;
+
+    // Check if the multiplying coefficient.
+    if (isset($product->field_multiplying_coefficient) && !empty($product->field_multiplying_coefficient)) {
+        foreach ($product->field_multiplying_coefficient[LANGUAGE_NONE] as $fcItem) {
+            $fc = field_collection_item_load($fcItem['value']);
+            if ($fc->field_country[LANGUAGE_NONE][0]['iso2'] == $shipping_country) {
+                $coefficient = floatval($fc->field_coefficient[LANGUAGE_NONE][0]['value']);
+            }
+        }
+    }
+
+    // Debug.
+//    $coefficient = 1.3;
+
+    return $coefficient;
+}
+
+/**
+ * Get the available shipping countries.
+ * @return array - Array of available shipping countries.
+ */
+function getAvailableShippingCountries() {
+    // Get the available shipping country code form the field settings ('commerce_customer_address').
+    $profile_types = commerce_customer_profile_types();
+    $field_name = 'commerce_customer_address';
+    $instance = field_info_instance('commerce_customer_profile', $field_name, $profile_types['shipping']['type']);
+    $availableCountriesCode = $instance['widget']['settings']['available_countries'];
+    $countries = country_get_list();
+
+    $availableShipping = array();
+    foreach($availableCountriesCode as $countryCode) {
+        $availableShipping[$countryCode] = $countries[$countryCode];
+    }
+
+    return $availableShipping;
+}
+
+/**
+ * Implements hook_commerce_checkout_page_info().
+ */
+function wassa_chapoutier_commerce_checkout_page_info()
+{
+    $checkout_pages = array();
+
+    return $checkout_pages;
+}
+/**
+ * Implements hook_commerce_checkout_page_info_alter().
+ */
+function wassa_chapoutier_commerce_checkout_page_info_alter(&$checkout_pages)
+{
+    global $user;
+
+    // Order commerce checkout page.
+    $checkout_pages['login']['weight'] = 0;
+    $checkout_pages['login']['name'] = t('Connexion');
+    $checkout_pages['login']['title'] = t('Connexion');
+
+    $checkout_pages['checkout']['weight'] = 10;
+    $checkout_pages['checkout']['name'] = t('My cart');
+    $checkout_pages['checkout']['title'] = t('My cart');
+
+    $checkout_pages['shipping']['weight'] = 20;
+    $checkout_pages['shipping']['name'] = t('Contact information');
+    $checkout_pages['shipping']['title'] = t('Contact information');
+
+    $checkout_pages['review']['weight'] = 30;
+    $checkout_pages['review']['name'] = t('Validation');
+    $checkout_pages['review']['title'] = t('Validation');
+
+    $checkout_pages['payment']['weight'] = 40;
+    $checkout_pages['payment']['buttons'] = TRUE;
+    $status_ids = array_keys(commerce_order_statuses(array('cart' => TRUE)));
+    $orderId = db_query('SELECT order_id FROM {commerce_order} WHERE uid = :uid ORDER BY order_id DESC', array(':uid' => $user->uid))->fetchField();
+    $order = commerce_order_load($orderId);
+    $checkout_pages['payment']['submit_value'] = t('Pay') . ' ' . $order->commerce_order_total[LANGUAGE_NONE][0]['amount']/100 . ' €';
+}
+/**
+ * Implements hook_commerce_checkout_pane_info_alter().
+ */
+function wassa_chapoutier_commerce_checkout_pane_info_alter(&$checkout_panes)
+{
+	//dpm($checkout_panes);
+	
+    $checkout_panes['commerce_userpoints_discount']['locked'] = FALSE;
+
+    // Unlock and disabled the commerce_payment_redirect pane (programmatically locked).
+    $checkout_panes['commerce_payment_redirect']['locked'] = FALSE;
+    $checkout_panes['commerce_payment_redirect']['enabled'] = 0;
+
+    $checkout_panes['continue_pane']['title'] = '';
+    
+    $checkout_panes['customer_profile_billing']['title'] = t('Billing information');
+    $checkout_panes['customer_profile_shipping']['title'] = t('Shipping information');
+
+    $checkout_panes['login_pane']['title'] = '';
+    $checkout_panes['login_pane']['#attributes'] = array('class' => array('col-lg-6'));
+}
+
+
+function wassa_chapoutier_commerce_price_component_type_info_alter(&$component_types) {
+	//dpm($component_types);
+	$component_types['userpoints']['title'] = t('Credit discount');
+	
+	$component_types['mazet_shipping']['display_title'] = t('Livraison par notre transporteur (MAZET)');
+	$component_types['retrait_boutique']['display_title'] = t('Retrait au caveau');
+}
+
+//Translate Taxonomy custom field
+function wassa_chapoutier_i18n_string_list_taxonomy_alter(&$strings, $type, $object) {
+    if ($type == 'taxonomy_term' && $object) {
+        if (isset($object->field_tooltip)) {
+            $term_field_tooltip = field_get_items('taxonomy_term', $object, 'field_tooltip');
+            //dpm($strings);
+            $strings['taxonomy']['term'][$object->tid]['field_tooltip']['string'] = $term_field_tooltip[0]['value'];
+        }
+    }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ * Affichage de la langue dans le body via une classe
+ */
+function wassa_chapoutier_preprocess_html(&$variables) {
+  global $language;
+  $variables['classes_array'][] = 'language-' . $language->language;
+}

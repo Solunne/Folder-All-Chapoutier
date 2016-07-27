@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Alter rules compatible actions.
+ *
+ * @param $actions
+ *   The items of all modules as returned from hook_rules_action_info().
+ *
+ * @see hook_rules_action_info().
+ */
+function commerce_add_to_cart_alter_rules_action_info_alter(&$actions) {
+  $actions['commerce_add_to_cart_confirmation_message']['callbacks']['execute'] = 'commerce_add_to_cart_alter_rules_add_to_cart_message'; 
+}
+
+function commerce_add_to_cart_alter_rules_add_to_cart_message($line_item, $continue) {
+  $message = '
+  <div class="modal fade" id="cart-confirmation" tabindex="-1" role="dialog" aria-labelledby="cart-confirmation" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.t('Close').'</span></button>
+          <h4 class="modal-title">'.t('Added to cart').'</h4>
+        </div>
+        <div class="modal-body">
+          '.views_embed_view('confirm_message_product_display', 'default', $line_item->line_item_id).'
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-default" data-dismiss="modal">'.t('Continue shopping').'</a>
+          <a href="'.url('cart').'" class="btn btn-primary">'.t('Go to cart').'</a>
+        </div>
+      </div>
+    </div>
+  </div>';
+  
+  drupal_set_message($message, 'commerce-add-to-cart-confirmation-alter');
+}
