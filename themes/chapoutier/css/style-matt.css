@@ -657,8 +657,8 @@ button.btn-success.form-submit{
 }
 
 #commerce-checkout-coupon-ajax-wrapper button.btn-success.form-submit{
-	margin-top: 25px;
-    margin-left: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .checkout_review .pane-title{
