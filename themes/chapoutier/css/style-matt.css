@@ -544,7 +544,7 @@ a.site-title.logo {
 
 #commerce-checkout-form-checkout .commerce_coupon .panel-body{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -554,6 +554,10 @@ a.site-title.logo {
     -webkit-align-items: flex-end;
     -ms-flex-align: end;
     align-items: flex-end;
+}
+
+#commerce-checkout-form-checkout .commerce_coupon .view-order-coupon-list{
+    width: 100%;
 }
 
 #edit-commerce-coupon .form-item-commerce-coupon-coupon-code {
@@ -647,7 +651,7 @@ button.btn-success.form-submit{
 }
 
 .form-item.form-item-commerce-coupon-coupon-code.form-type-textfield.form-group {
-    width: 80%;
+    width: 100%;
     margin: 0;
     float: left;
 }
