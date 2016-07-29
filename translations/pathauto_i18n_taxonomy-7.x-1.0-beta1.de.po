@@ -1,0 +1,24 @@
+# German translation of Pathauto i18n Taxonomy (7.x-1.0-beta1)
+# Copyright (c) 2012 by the German translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Pathauto i18n Taxonomy (7.x-1.0-beta1)\n"
+"POT-Creation-Date: 2012-05-23 12:11+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Pattern for all %vocab-name paths"
+msgstr "Muster für alle %vocab-name Pfade"
+msgid "Multilingual"
+msgstr "Mehrsprachig"
+msgid "Updated alias for term @tid."
+msgstr "Alias ​​für Begriff @tid aktualisiert."
+msgid "Updated URL alias for 1 term."
+msgid_plural "Updated URL aliases for @count terms."
+msgstr[0] "URL-Alias wurde für 1 Begriff aktualisiert."
+msgstr[1] "URL-Aliase wurde für @count Begriffe aktualisiert."
