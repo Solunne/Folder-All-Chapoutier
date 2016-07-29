@@ -1,0 +1,8 @@
+name = Commerce Shipping Jump
+description = Automatically jump over shipping pane when the order is not shippable
+core = 7.x
+package = Commerce (shipping)
+version = 7.x-1.0
+dependencies[] = commerce_physical
+dependencies[] = commerce_shipping
+dependencies[] = rules
