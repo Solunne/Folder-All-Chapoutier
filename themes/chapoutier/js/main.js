@@ -319,6 +319,13 @@
         var placeholder2 = jQuery('body.page-user-reset #user-profile-form .form-item-pass-pass2 .control-label').text();
         jQuery('body.page-user-reset #user-profile-form .form-item-pass-pass2 input#edit-pass-pass2').attr("placeholder", placeholder2.substr(0, (placeholder2.length)-2));
 
+        // Add Placeholder in page gift card
+        var placeholdergift1 = jQuery('body.node-type-giftcard-display .form-item-line-item-fields-commerce-gc-mail-und-0-email .control-label').text();
+        jQuery('body.node-type-giftcard-display input#edit-line-item-fields-commerce-gc-mail-und-0-email').attr("placeholder", placeholdergift1.substr(0, (placeholdergift1.length)-2));
+
+        var placeholdergift2 = jQuery('body.node-type-giftcard-display .form-item-line-item-fields-commerce-gc-message-und-0-value .control-label').text();
+        jQuery('body.node-type-giftcard-display textarea#edit-line-item-fields-commerce-gc-message-und-0-value').attr("placeholder", placeholdergift2.substr(0, (placeholdergift2.length)-2));
+
         // Change test Chèque UK
         //jQuery( "body.language-en .form-item-commerce-payment-payment-method label[for=edit-commerce-payment-payment-method-commerce-chequerules-cheque]").text("Cheque");
     });

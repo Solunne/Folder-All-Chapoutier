@@ -1,6 +1,6 @@
 <?php
 /**
- * @file node--wine-display.tpl.php
+ * @file node--giftcard-display.tpl.php
  * Override theme implementation to display a node.
  *
  * Available variables:
@@ -95,21 +95,24 @@
             </div>
             <div class="col-xs-12 description-product">
                 <div class="row">
-                    <div class="col-xs-12 col-md-6 image">
-                        <?php print render($content['product:field_images']); ?>
+                    <div class="col-xs-12 col-md-6 image-description">
+                        <div class="col-xs-12 image">
+                            <?php print render($content['product:field_images']); ?>
+                        </div>
+                        <div class="col-xs-12 description">
+                            <?php print $content['field_description']['#items'][0]['value']; ?>
+                        </div>
                     </div>
+
                     <div class="col-xs-12 col-md-6 product-informations">
-                        <div class="col-xs-12 text-right price-bazar">
+                        <div class="col-xs-12 text-right price-giftcard">
                             <?php
                             print render($content['product:commerce_price']);
                             print render($content['product:field_commerce_saleprice']);
                             ?>
                         </div>
-                        <div class="col-xs-12 product">
+                        <div class="col-xs-12 product giftcard">
                             <?php print render($content['field_product_reference_giftcard']); ?>
-                        </div>
-                        <div class="col-xs-12 description">
-                            <?php print $content['field_description']['#items'][0]['value']; ?>
                         </div>
                         <div class="col-xs-12 labels">
                             <ul class="list-labels flex">

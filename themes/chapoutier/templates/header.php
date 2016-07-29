@@ -68,12 +68,33 @@
                         <select class="form-control form-select language-selection" id="edit-language-selection">
                             <?php
                                 global $language;
-                                $linkLocale = ($language->language == 'fr') ? 'en' : 'fr';
-                                $selectedFr = ($language->language == 'fr') ? "selected" : "";
-                                $selectedEn = ($language->language == 'en') ? "selected" : "";
+                                $linkLocale = $language->language;
+                                //$linkLocale = ($language->language == 'fr') ? 'en' : 'fr' : 'de' : 'zh-hans';
+                                //$selectedFr = ($language->language == 'fr') ? "selected" : "";
+                                //$selectedEn = ($language->language == 'en') ? "selected" : "";
+                                //$selectedDe = ($language->language == 'de') ? "selected" : "";
+                                //$selectedCn = ($language->language == 'zh-hans') ? "selected" : "";
+
+                                switch ($linkLocale) {
+                                    case 'fr':
+                                        $selectedFr = ($language->language == 'fr') ? "selected" : "";
+                                        break;
+                                    case 'en':
+                                        $selectedEn = ($language->language == 'en') ? "selected" : "";
+                                        break;
+                                    case 'de':
+                                        $selectedDe = ($language->language == 'de') ? "selected" : "";
+                                        break;
+                                    case 'zh-hans':
+                                        $selectedCn = ($language->language == 'zh-hans') ? "selected" : "";
+                                        break;
+                                }
+
                             ?>
                             <?php print '<option value="/fr/' . drupal_get_path_alias(current_path(), 'fr') . '" ' . $selectedFr . '>FR</option>'; ?>
                             <?php print '<option value="/en/' . drupal_get_path_alias(current_path(), 'en') . '" ' . $selectedEn . '>EN</option>'; ?>
+                            <?php print '<option value="/de/' . drupal_get_path_alias(current_path(), 'en') . '" ' . $selectedEn . '>DE</option>'; ?>
+                            <?php print '<option value="/zh-hans/' . drupal_get_path_alias(current_path(), 'en') . '" ' . $selectedEn . '>中国</option>'; ?>
                         </select>
                     </div>
                 </div>

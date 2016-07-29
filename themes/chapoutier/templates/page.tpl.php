@@ -96,27 +96,32 @@ print render($block['content']);
 
             <div class="row">
 
-                <section<?php print $content_column_class; ?>>
-                    <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
+                <section class="col-xs-12">
+                    <div class="row">
+                        <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
 
-                    <?php //print render($title_prefix); ?>
-                    <?php /*if (!empty($title)): */?><!--
-                        <h1 class="page-header"><?php /*print $title; */?></h1>
-                    --><?php /*endif; */?>
-                    <?php //print render($title_suffix); ?>
+                        <?php if (!empty($messages)): ?>
+                            <div class="col-xs-12 col-md-8 col-md-offset-2 vert-offset-top-1 messages-admin">
+                                <?php print $messages; ?>
+                            </div>
+                        <?php endif; ?>
 
-                    <?php print $messages; ?>
+                        <?php if (!empty($action_links)): ?>
+                            <div class="col-xs-12 col-md-8 col-md-offset-2 action-links-admin">
+                                <ul class="action-links"><?php print render($action_links); ?></ul>
+                            </div>
+                        <?php endif; ?>
 
-                    <?php if (!empty($action_links)): ?>
-                        <ul class="action-links"><?php print render($action_links); ?></ul>
-                    <?php endif; ?>
+                        <?php if (!empty($tabs)): ?>
+                            <div class="col-xs-12 col-md-8 col-md-offset-2 tabs-admin">
+                                <?php print render($tabs); ?>
+                            </div>
+                        <?php endif; ?>
 
-                    <?php if (!empty($tabs)): ?>
-                        <?php print render($tabs); ?>
-                    <?php endif; ?>
-
-                    <?php print render($page['content']); ?>
-
+                        <div class="col-xs-12">
+                            <?php print render($page['content']); ?>
+                        </div>
+                    </div>
                 </section>
 
             </div>

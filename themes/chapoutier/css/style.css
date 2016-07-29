@@ -182,6 +182,20 @@ button[type=submit]:hover {
     color: red;
 }
 
+/*----------------------------------*/
+/*-------------Add to cart----------*/
+/*----------------------------------*/
+
+.commerce-add-to-cart-confirmation-alter .alert {
+    padding: 0px;
+    margin-bottom: 0px;
+    border: none;
+}
+
+.commerce-add-to-cart-confirmation-alter a.close{
+    display: none;
+}
+
 /*-----------------------------*/
 /*-------------Header----------*/
 /*-----------------------------*/
@@ -2730,6 +2744,279 @@ body.node-type-bundle-display .col-xs-12.related-category .col-xs-8 p{
 }
 
 body.node-type-bundle-display .col-xs-12.related-category .col-xs-8 p.link-product{
+    font-family: 'BebasNeue-bold';
+    font-size: 1.167em;
+    line-height: 1.167em;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #d1d1d1;
+    padding: 5px 10px 1px;
+    margin: 0 auto;
+    display: table;
+}
+
+/*--------------------------------------------*/
+/*-----------------Page Gift Card-------------*/
+/*--------------------------------------------*/
+
+
+/*---------------Title-----------*/
+
+body.node-type-giftcard-display .region-content h1.title{
+    font-family: 'CenturySchoolbook-Regular';
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+body.node-type-giftcard-display .region-content h2.subtitle{
+    font-family: 'CenturySchoolbook-Regular';
+    font-size: 25px;
+    margin-top: 0;
+}
+
+/*-----------Image---------*/
+
+body.node-type-giftcard-display .region-content .description-product .image img{
+    margin:0 auto;
+    margin-bottom: 20px;
+}
+
+/*--------------Prix-----------*/
+
+body.node-type-giftcard-display .col-xs-12.description-product{
+    position: relative;
+    padding-top: 20px;
+}
+
+body.node-type-giftcard-display .col-xs-12.price-bazar{
+    padding: 15px 0;
+}
+
+@media (min-width: 1024px) {
+    body.node-type-giftcard-display .col-xs-12.price-bundle{
+        padding: 0;
+        position: absolute;
+        top: -60px;
+        right: 15px;
+    }
+}
+
+body.node-type-giftcard-display div.col-xs-12.price-giftcard div{
+    display: inline-block;
+    font-family: 'BebasNeue-bold';
+    font-size: 34px;
+    color: #000;
+}
+
+.sales{
+    text-decoration: line-through;
+    margin-left: 2%;
+    font-size: 1.6em!important;
+    font-family: 'BebasNeue-Regular'!important;
+}
+
+/*--------------Selector send gift card-----------*/
+
+body.node-type-giftcard-display .form-item-line-item-fields-commerce-gc-mail-und-0-email .control-label,
+body.node-type-giftcard-display .form-item-line-item-fields-commerce-gc-message-und-0-value .control-label,
+body.node-type-giftcard-display .product.giftcard #gc-fulfillment-type .form-required{
+    display: none;
+}
+
+body.node-type-giftcard-display .product.giftcard .field-name-commerce-gc-mail,
+body.node-type-giftcard-display .product.giftcard .field-name-commerce-gc-message,
+body.node-type-giftcard-display .product.giftcard #gc-fulfillment-type{
+    margin-bottom: 20px;
+}
+
+body.node-type-giftcard-display #edit-line-item-fields-commerce-gc-fulfillment-type > div > label{
+    font-family: 'CenturySchoolbook-Bold';
+    font-size: 16px;
+}
+
+body.node-type-giftcard-display #edit-line-item-fields-commerce-gc-fulfillment-type-und .control-label{
+    font-family: 'CenturySchoolbook-Regular';
+    font-size: 1.083em;
+    color: #000;
+}
+
+/*--------------Breadcrumb-----------*/
+
+body.node-type-giftcard-display .col-xs-12.bread-crumb{
+    font-family: 'BebasNeue-Regular';
+    color: #c1d82f;
+    font-size: 1em;
+}
+
+body.node-type-giftcard-display .col-xs-12.bread-crumb:after{
+    content: '';
+    background: #ebebeb;
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-top: 5px;
+}
+
+@media (max-width: 992px) {
+    body.node-type-giftcard-display .col-xs-12.bread-crumb{
+        display: none;
+    }
+}
+
+body.node-type-giftcard-display .col-xs-12.bread-crumb a{
+    font-family: 'BebasNeue-Regular';
+    color: #959595;
+    font-size: 1em;
+}
+
+/*--------------Quantity-----------*/
+
+.form-group{
+    margin-bottom: 0;
+}
+
+/*------------description-------*/
+
+body.node-type-giftcard-display .description{
+    margin-bottom: 20px;
+    font-family: 'CenturySchoolbook-Regular';
+    font-size: 1.083em;
+    color: #000;
+}
+
+body.node-type-giftcard-display .description h4.title-content-bundle{
+    font-family: 'BebasNeue-bold';
+    font-size: 1.4em;
+    color: #000;
+    margin: 20px 0;
+}
+
+body.node-type-giftcard-display .description .product-included{
+    border-top: 1px solid #e1e2e2;
+}
+
+body.node-type-giftcard-display .description .product-included:last-child{
+    border-bottom: 1px solid #e1e2e2;
+}
+
+body.node-type-giftcard-display .description .product-included .flex{
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+body.node-type-giftcard-display .description .product-included .title-product-included{
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+@media (max-width: 992px) {
+    body.node-type-giftcard-display .description .product-included .title-product-included{
+        display: flex;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+}
+
+body.node-type-giftcard-display .description .product-included .title-product-included h3{
+    margin: 0;
+    font-size: 1.4em;
+}
+
+body.node-type-giftcard-display .description .product-included .image-product-included{
+    padding:5px;
+}
+
+body.node-type-giftcard-display .description .product-included .quantity-product-included{
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+/*-----------Recommandation catégorie-------*/
+
+body.node-type-giftcard-display .col-xs-12.related-category{
+    margin-bottom: 5%;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category h3.title span.line{
+    background: #fff;
+    padding: 0 2%;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category h3.title {
+    position: relative;
+    z-index: 1;
+    padding: 2% 0;
+    font-family: 'BebasNeue-bold';
+    font-size: 1.500em;
+    line-height:1.500em;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category h3.title:before {
+    background: #000;
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+    height: 2px;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category .flex{
+    align-items: center;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category .row a{
+    padding: 20px;
+    color: #000;
+    border: 1px solid #d1d1d1;
+    text-decoration: none;
+    min-height: 150px;
+    display: flex;
+    margin-bottom: 5%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category a:hover{
+    opacity: 0.8;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category .col-xs-4 img{
+    max-height: 150px;
+    display: block;
+    width: auto;
+    margin: 0 auto;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category .col-xs-8 h3.title-related{
+    font-family: 'CenturySchoolBook-Bold';
+    font-size: 1.167em;
+    line-height: 1.167em;
+    padding: 3px 0 10% 0;
+    margin:0;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category .col-xs-8 p{
+    font-family: 'CenturySchoolBook-Bold';
+    font-size: 1em;
+    line-height: 1em;
+    padding: 3px 0;
+    margin:0;
+}
+
+body.node-type-giftcard-display .col-xs-12.related-category .col-xs-8 p.link-product{
     font-family: 'BebasNeue-bold';
     font-size: 1.167em;
     line-height: 1.167em;
