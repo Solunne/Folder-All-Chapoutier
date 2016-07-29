@@ -1,0 +1,16 @@
+name = Commerce Giftcard by Mail
+description = Provides customers the option to have giftcards shipped instead of being sent via e-mail.
+core = 7.x
+
+dependencies[] = commerce_gc
+dependencies[] = entity
+dependencies[] = field
+dependencies[] = list
+dependencies[] = options
+dependencies[] = rules
+; Information added by Drupal.org packaging script on 2016-05-31
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "commerce_gc_by_mail"
+datestamp = "1464672544"
+

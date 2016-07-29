@@ -1,0 +1,133 @@
+<?php
+/**
+ * @file
+ *   Install / uninstall logic for the "Commerce Giftcard Manual Fullfillment
+ *   Option" module.
+ */
+
+require_once('commerce_gc_by_mail.constants.inc');
+
+/**
+ * Implements hook_install().
+ */
+function commerce_gc_by_mail_install() {
+  _commerce_gc_by_mail_install_fields();
+}
+
+/**
+ * Installs custom fields this module requires in Giftcard Purchase line items.
+ */
+function _commerce_gc_by_mail_install_fields() {
+  if (!_commerce_gc_by_mail_field_exists()) {
+    $field = _commerce_gc_by_mail_generate_field();
+
+    field_create_field($field);
+  }
+
+  if (!_commerce_gc_by_mail_field_instance_exists()) {
+    $field_instance = _commerce_gc_by_mail_generate_field_instance();
+
+    field_create_instance($field_instance);
+  }
+}
+
+/**
+ * Generates the GC fulfillment type field.
+ *
+ * @return array
+ *   The field info, in the format accepted by <code>field_create_field</code>.
+ */
+function _commerce_gc_by_mail_generate_field() {
+  $field = array(
+    'field_name'  => CGBM_FULFILLMENT_TYPE_FIELD_NAME,
+    'type'        => 'list_text',
+    'locked'      => TRUE,
+    'cardinality' => '1',
+    'settings'    => array(
+      'allowed_values' => array(
+        CGBM_FULFILLMENT_TYPE_EMAIL   =>
+          'Electronically, via e-mail',
+
+        CGBM_FULFILLMENT_TYPE_PRINTED =>
+          'Physically, shipped with my order',
+
+        CGBM_FULFILLMENT_TYPE_SELF    =>
+          'Neither; send it to me. I\'m buying for myself, or will get it to the recipient myself',
+      ),
+    ),
+  );
+
+  return $field;
+}
+
+/**
+ * Generates the GC fulfillment type field instance in gift card line items.
+ *
+ * @return array
+ *   The field instance info, in the format accepted by
+ *   <code>field_create_instance</code>.
+ */
+function _commerce_gc_by_mail_generate_field_instance() {
+  $field_instance = array(
+    'field_name'    => CGBM_FULFILLMENT_TYPE_FIELD_NAME,
+    'entity_type'   => CGBM_LINE_ITEM_ENTITY_TYPE,
+    'bundle'        => CGBM_GIFT_CARD_PURCHASE_BUNDLE,
+    'label'         => t('How would you like the gift card to be delivered?'),
+    'required'      => TRUE,
+    'default_value' => array(
+      0 => array(
+        'value' => 'email',
+      ),
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'type'   => 'options_buttons',
+      'weight' => 6,
+    ),
+    'display' => array(
+      'default' => array(
+        'label'  => 'above',
+        'module' => 'list',
+        'type'   => 'list_default',
+      ),
+    ),
+    'commerce_cart_settings' => array(
+      'field_access' => 1,
+    ),
+  );
+
+  return $field_instance;
+}
+
+/**
+ * Determines whether or not the fulfillment option field exists.
+ *
+ * @return bool
+ */
+function _commerce_gc_by_mail_field_exists() {
+  $fields     = field_info_fields();
+  $field_name = CGBM_FULFILLMENT_TYPE_FIELD_NAME;
+
+  return !empty($fields[$field_name]);
+}
+
+/**
+ * Determines whether or not the fulfillment option field instance exists.
+ *
+ * @return bool
+ */
+function _commerce_gc_by_mail_field_instance_exists() {
+  $field_instances = field_info_instances();
+
+  $field_keys =
+    array(
+      CGBM_LINE_ITEM_ENTITY_TYPE,
+      CGBM_GIFT_CARD_PURCHASE_BUNDLE,
+      CGBM_FULFILLMENT_TYPE_FIELD_NAME);
+
+  $existing_instance =
+    drupal_array_get_nested_value($field_instances, $field_keys);
+
+  return !empty($existing_instance);
+}

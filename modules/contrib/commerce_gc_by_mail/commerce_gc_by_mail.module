@@ -1,0 +1,273 @@
+<?php
+/**
+ * @file
+ *   Main module code for "Commerce Giftcard by Mail", which provides customers
+ *   the option to have gift cards shipped instead of being sent via e-mail..
+ */
+
+require_once('commerce_gc_by_mail.constants.inc');
+
+/**
+ * <p>Implements <code>hook_form_alter()</code>.</p>
+ *
+ * <p>Alters the add-to-cart and checkout forms to add the giftcard fulfillment
+ * prompts.</p>
+ */
+function commerce_gc_by_mail_form_alter(array &$form, array &$form_state, $form_id) {
+  if (_commerce_gc_by_mail_is_add_to_cart_form($form_id)) {
+    _commerce_gc_by_mail_alter_product_form($form);
+  }
+  elseif (_commerce_gc_by_mail_is_checkout($form_id)) {
+    $pane =& drupal_array_get_nested_value(
+      $form, array(CGBM_GC_PRODUCT_PANE_ELEMENT));
+
+    if (!empty($pane)) {
+      foreach (element_children($pane) as $line_item_id) {
+        _commerce_gc_by_mail_alter_product_form($pane[$line_item_id]);
+      }
+    }
+  }
+}
+
+/**
+ * Makes the appropriate combination of fields required during form processing
+ * based on what the user has requested.
+ *
+ * @param array $element
+ *   The form element that contains the fulfillment form.
+ * @param array $form_state
+ *   A reference to the form state array.
+ * @param array $form
+ *   The form array.
+ * @return array
+ *   The modified form element, ready to be rendered.
+ */
+function commerce_gc_by_mail_required_process($element, array &$form_state, array $form) {
+  $fulfillment_field =& drupal_array_get_nested_value(
+    $element, array(CGBM_FULFILLMENT_TYPE_FIELD_NAME));
+
+  if (!empty($fulfillment_field)) {
+    $language = $fulfillment_field['#language'];
+    $parents  = $fulfillment_field[$language]['#field_parents'];
+
+    $input_parents = array('input');
+    $input_parents = array_merge($input_parents, $parents);
+    $input_parents =
+      array_merge(
+        $input_parents,
+        array(CGBM_FULFILLMENT_TYPE_FIELD_NAME, $language));
+
+    // NOTE: $form_state['input'] must be used sparingly due to security
+    //       concerns inherent with working with raw user input. Here, it's
+    //       necessary because we don't yet have values in $form_state['values']
+    //       and safe because we're only checking the input value against a
+    //       known value.
+    $fulfillment_type_value =
+      drupal_array_get_nested_value($form_state, $input_parents);
+
+    if (!empty($fulfillment_type_value)) {
+      // Recipient fields are only required for the "email" fulfillment option
+      if ($fulfillment_type_value !== CGBM_FULFILLMENT_TYPE_EMAIL) {
+        _commerce_gc_by_mail_link_gc_fields(NULL, $element, FALSE);
+      }
+    }
+  }
+
+  return $element;
+}
+
+/**
+ * <p>Implements <code>hook_entity_presave()</code>.</p>
+ *
+ * <p>Ensures that Giftcard line items stay internally consistent after changes
+ * in fulfillment type during checkout. For example, changing from sending the
+ * giftcard via e-mail to including it as a printed giftcard in the order should
+ * ensure that the recipient's email and message are removed from the line
+ * item.</p>
+ */
+function commerce_gc_by_mail_entity_presave($entity, $type) {
+  if (($type == CGBM_LINE_ITEM_ENTITY_TYPE) && ($entity->type == CGBM_GIFT_CARD_PURCHASE_BUNDLE)) {
+    $line_item_wrapper = entity_metadata_wrapper($type, $entity);
+    $fulfillment_type  =
+      $line_item_wrapper->{CGBM_FULFILLMENT_TYPE_FIELD_NAME}->value();
+
+    // Erases recipient info if the customer has chosen not to send the giftcard
+    // via e-mail.
+    if ($fulfillment_type != CGBM_FULFILLMENT_TYPE_EMAIL) {
+      foreach (commerce_gc_by_mail_field_names() as $gc_field_name) {
+        $line_item_wrapper->{$gc_field_name}->set(NULL);
+      }
+    }
+  }
+}
+
+/**
+ * Returns the machine names of the recipient fields added by this module.
+ *
+ * @return array
+ *   The machine name of each recipient field.
+ */
+function commerce_gc_by_mail_field_names() {
+  return array(CGBM_RECIPIENT_MAIL_FIELD_NAME, CGBM_RECIPIENT_MESSAGE_FIELD_NAME);
+}
+
+/**
+ * <p>Modifies gift card cart and checkout forms to prompt for fulfillment
+ * type.</p>
+ *
+ * <p>Called by <code>hook_form_alter()</code> on cart and checkout forms.</p>
+ *
+ * @param array $form
+ *   A reference to the form to modify.
+ */
+function _commerce_gc_by_mail_alter_product_form(array &$form) {
+  $line_item_fields =&
+    drupal_array_get_nested_value(
+      $form, array(CGBM_LINE_ITEM_FIELDS_ELEMENT));
+
+  $fulfillment_type_field =&
+    drupal_array_get_nested_value(
+      $line_item_fields, array(CGBM_FULFILLMENT_TYPE_FIELD_NAME));
+
+  if (!empty($fulfillment_type_field)) {
+    $parent_form_id = drupal_html_id('gc-fulfillment-type');
+
+    $fulfillment_type_field['#prefix'] =
+      sprintf('<div id="%s">', $parent_form_id);
+
+    $fulfillment_type_field['#suffix'] = '</div>';
+
+    _commerce_gc_by_mail_link_gc_fields(
+      $parent_form_id,
+      $line_item_fields);
+
+    _commerce_gc_by_mail_add_field_process_callback(
+      $line_item_fields,
+      'commerce_gc_by_mail_required_process');
+
+    $form['#attached']['js'][] =
+      drupal_get_path('module', CGBM_MODULE_NAME) . '/js/commerce_gc_by_mail.js';
+  }
+}
+
+/**
+ * Makes appropriate line item fields dependent on the parent fulfillment type
+ * control on the client-side via Drupal's States JS.
+ *
+ * @param string $parent_element_id
+ *   The unique DOM ID for the parent radio button field.
+ * @param string[] $line_item_fields
+ *   A reference to the array of fields on the line item form, modified
+ *   in-place.
+ * @param bool $required
+ *   Whether or not to make the dependent fields required. The default is TRUE,
+ *   but this is FALSE during form processing to prevent validation errors from
+ *   appearing for fields that are not required based on the fulfillment type.
+ */
+function _commerce_gc_by_mail_link_gc_fields($parent_element_id = NULL, array &$line_item_fields, $required = TRUE) {
+  foreach (commerce_gc_by_mail_field_names() as $gc_field_name) {
+    if (isset($line_item_fields[$gc_field_name])) {
+      $gc_field =& $line_item_fields[$gc_field_name];
+
+      if (!empty($parent_element_id)) {
+        _commerce_gc_by_mail_add_dependent_field_states(
+          $gc_field, $parent_element_id);
+      }
+
+      _commerce_gc_by_mail_make_field_required($gc_field, $required);
+    }
+  }
+}
+
+/**
+ * <p>Sets up Drupal States JS on the provided form element to depend (i.e.
+ * show & hide) based on the provided parent radio element.</p>
+ *
+ * <p>The element will be configured to show only when the user chooses the
+ * "email" fulfillment option.</p>
+ *
+ * @param array $element
+ *   A reference to the form element to alter.
+ * @param string $parent_element_id
+ *   The unique DOM ID for the parent radio button field.
+ */
+function _commerce_gc_by_mail_add_dependent_field_states(array &$element, $parent_element_id) {
+  if (empty($element['#states'])) {
+    $element['#states'] = array();
+  }
+
+  $parent_field_name = CGBM_FULFILLMENT_TYPE_FIELD_NAME;
+  $state_selector = "#{$parent_element_id} :input[name*='{$parent_field_name}']";
+
+  $element['#states']['visible'] =
+    array($state_selector => array('value' => 'email'));
+}
+
+/**
+ * <p>Modifies the '#required' attribute on the provided form element and all of
+ * its children to match to specified value.</p>
+ *
+ * <p>Only fields that already have '#required' set to any value will be
+ * modified, though children are still traversed regardless.</p>
+ *
+ * @param array $field_element
+ *   A reference to the element to modify.
+ * @param bool $required
+ *   Whether or not to make the field required or not.
+ */
+function _commerce_gc_by_mail_make_field_required(array &$field_element, $required = TRUE) {
+  if (isset($field_element['#required'])) {
+    $field_element['#required'] = $required;
+  }
+
+  $element_children = element_children($field_element);
+
+  if (!empty($element_children)) {
+    foreach ($element_children as $child_name) {
+      _commerce_gc_by_mail_make_field_required(
+        $field_element[$child_name], $required);
+    }
+  }
+}
+
+/**
+ * Adds the provided '#process' callback on the provided form element.
+ *
+ * @param array $field_element
+ *   A reference to the form element to modify.
+ * @param string $callback
+ *   The name of the callback function.
+ */
+function _commerce_gc_by_mail_add_field_process_callback(array &$field_element, $callback) {
+  if (empty($field_element['#process'])) {
+    $field_element['#process'] = array();
+  }
+
+  $field_element['#process'][] = $callback;
+}
+
+/**
+ * Whether or not the provided form ID corresponds to the Add to Cart form for
+ * giftcards.
+ *
+ * @param string $form_id
+ *   The form ID.
+ * @return bool
+ *   Whether or not the form is an Add to Cart form.
+ */
+function _commerce_gc_by_mail_is_add_to_cart_form($form_id) {
+  return (strpos($form_id, 'commerce_cart_add_to_cart_form_') === 0);
+}
+
+/**
+ * Whether or not the provided form ID corresponds to the checkout form for
+ * giftcards.
+ *
+ * @param string $form_id
+ *   The form ID.
+ * @return bool
+ *   Whether or not the form is giftcard checkout form.
+ */
+function _commerce_gc_by_mail_is_checkout($form_id) {
+  return ($form_id == 'commerce_checkout_form_checkout');
+}
