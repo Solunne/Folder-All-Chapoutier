@@ -78,7 +78,7 @@
  *
  * @ingroup templates
  */
-//dpm($content);
+//dpm($node);
 ?>
 <?php
     global $language;

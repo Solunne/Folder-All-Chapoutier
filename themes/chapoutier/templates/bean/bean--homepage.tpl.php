@@ -59,6 +59,14 @@ $langue = $language->language;
     <div class="col-xs-12 col-md-8 col-md-offset-2 vert-offset-top-3 vert-offset-bottom-3 content">
         <?php print $content['field_description_en']['#items'][0]['value']; ?>
     </div>
+<?php }elseif($langue == 'de'){ ?>
+    <div class="col-xs-12 col-md-8 col-md-offset-2 vert-offset-top-3 vert-offset-bottom-3 content">
+        <?php print $content['field_description_de']['#items'][0]['value']; ?>
+    </div>
+<?php }elseif($langue == 'zh-hans'){ ?>
+    <div class="col-xs-12 col-md-8 col-md-offset-2 vert-offset-top-3 vert-offset-bottom-3 content">
+        <?php print $content['field_description_cn']['#items'][0]['value']; ?>
+    </div>
 <?php }else{ ?>
     <div class="col-xs-12 col-md-8 col-md-offset-2 vert-offset-top-3 vert-offset-bottom-3 content">
         <?php print $content['field_description']['#items'][0]['value']; ?>
