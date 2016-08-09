@@ -16,7 +16,7 @@ function ip_language_negotiation_form($form, &$form_state) {
   $settings = variable_get('ip_language_negotiation_countries', array());
 
   $form['intro'] = array(
-    '#markup' => t('Use the interface below to select the default language per country. You only have to set the exceptions, because the default language will be used as fall-back.'),
+    '#markup' => '<p>' . t('Use the interface below to select the default language per country. You only have to set the exceptions, because the default language will be used as fall-back. You can use the <a href="@url">Debug preferences</a> to test the module.', array('@url' => url('admin/config/people/ip2country', array('fragment' => 'edit-ip2country-debug-preferences')))) . '</p>',
   );
 
   // Remove the default language.

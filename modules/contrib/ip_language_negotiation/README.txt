@@ -28,3 +28,5 @@ Navigate to admin/config/regional/language/configure.
   URL detection first, and Country detection as second.
 * Go to admin/config/regional/language/configure/ip and set the default
   language per country. As a fall-back, the default language is used.
+* To test the module, use the 'Debug preferences' settings on the
+  ip2country admin page (admin/config/people/ip2country).

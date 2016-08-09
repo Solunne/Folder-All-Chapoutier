@@ -78,12 +78,15 @@
  *
  * @ingroup templates
  */
-//dpm($node);
+dpm($content);
 ?>
 <?php
     global $language;
     $langue= $language->language;
 ?>
+<div class="row">
+    <?php print render($content['product:title_field']); ?>
+</div>
 <div class="row padding-lateral">
     <div class="col-xs-12 col-md-3 sidebar-left" style="position: inherit;">
         <div class="">

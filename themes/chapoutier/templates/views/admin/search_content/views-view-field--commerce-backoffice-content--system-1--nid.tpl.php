@@ -43,7 +43,7 @@
                     <a href="<?php print '/' . $languages[1][$item->language]->language . '/' . drupal_get_path_alias('node/' . $nidtranslated .''); ?>" class="url-node-translated">
                         <?php print $item->title; ?>
                     </a>
-                    <a href="<?php print '/' . $langue . '/node/' . $nidtranslated . '/edit'; ?>" class="edit-node-translated">
+                    <a href="<?php print '/' . $languages[1][$item->language]->language . '/node/' . $nidtranslated . '/edit'; ?>" class="edit-node-translated">
                         <?php print '(' .t('Edit') .')'; ?>
                     </a>
             </li>

@@ -6,9 +6,9 @@ configure = admin/config/regional/language/configure
 
 dependencies[] = ip2country
 
-; Information added by Drupal.org packaging script on 2015-02-20
-version = "7.x-1.3"
+; Information added by Drupal.org packaging script on 2016-07-16
+version = "7.x-1.4"
 core = "7.x"
 project = "ip_language_negotiation"
-datestamp = "1424450892"
+datestamp = "1468656866"
 

@@ -1,0 +1,187 @@
+<?php
+
+/**
+ * @file
+ *   Static field main module file.
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function static_field_field_info() {
+  return array(
+    'static_field' => array(
+      'label' => t('Static'),
+      'description' => t('Allows the display of static text as field as a field instance.'),
+      'instance_settings' => array(
+        'text' => array('value' => '', 'format' => NULL),
+        'form_display' => FALSE,
+      ),
+      'default_widget' => 'static_field',
+      'default_formatter' => 'static_field'
+    )
+  );
+}
+
+/**
+ * Implements hook_field_instance_settings_form().
+ */
+function static_field_field_instance_settings_form($field, $instance) {
+  $settings = $instance['settings'];
+  $form = array();
+
+  $form['text'] = array(
+    '#type' => 'text_format',
+    '#title' => t('Static field content'),
+    '#default_value' => $settings['text']['value'],
+    '#format' => $settings['text']['format'],
+    '#required' => TRUE,
+    '#description' => t('The static field text to display in this instance of field.')
+  );
+  $form['form_display'] = array(
+    '#type' => 'radios',
+    '#title' => t('Display also in form'),
+    '#description' => t("Select how the static content will be displayed in the edit form."),
+    '#default_value' => $settings['form_display'],
+    '#options' => array(
+      FALSE => t('No'),
+      'markup' => t('Yes. No label'),
+      'item' => t('Yes. Display also the label'),
+    ),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_field_create_instance().
+ */
+function static_field_field_create_instance($instance) {
+  if (function_exists('i18n_string')) {
+    $name = array($instance['entity_type'], 'type', $instance['bundle'], $instance['field_name']);
+    $text = $instance['settings']['text']['value'];
+    $format = $instance['settings']['text']['format'];
+    i18n_string(implode(':', $name), $text, array('update' => true, 'format' => $format));
+  }
+}
+
+/**
+ * Implements hook_field_widget_info(). A dummy widget.
+ */
+function static_field_field_widget_info() {
+  return array(
+    'static_field' => array(
+      'label' => t('Static'),
+      'description' => t("If 'Display also in form' was set, this widget will display the static content of the field as an 'item' or 'markup' form element."),
+      'field types' => array('static_field'),
+    )
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function static_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  if ($instance['settings']['form_display']) {
+    $element += array(
+      '#type' => $instance['settings']['form_display'],
+      '#markup' => check_markup($instance['settings']['text']['value'], $instance['settings']['text']['format']),
+    );
+    return $element;
+  }
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function static_field_field_is_empty($item, $field) {
+  return TRUE;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function static_field_field_formatter_info() {
+  return array(
+    'static_field' => array(
+      'label' => t('Static as markup'),
+      'description' => t("Render only the static content (the field value) without the field label. It uses the '#markup' form element type."),
+      'field types' => array('static_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function static_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'static_field':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#markup' => $item['safe_value'],
+        );
+      }
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_load().
+ */
+function static_field_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
+  foreach ($entities as $entity_id => $entity) {
+    $format = $instances[$entity_id]['settings']['text']['format'];
+    $value = $instances[$entity_id]['settings']['text']['value'];
+    if (function_exists('i18n_string')) {
+      $name = array($entity_type, $instances[$entity_id]['bundle'], $field['field_name']);
+      $options = array(
+        'langcode' => $entity->language,
+        'format' => $format,
+      );
+      $save_value = i18n_string(implode(':', $name), $value, $options);
+    } else {
+      $save_value = check_markup($value, $format);
+    }
+    $items[$entity_id][0] = array(
+      'value' => $instances[$entity_id]['settings']['text']['value'],
+      'format' => $format,
+      'safe_value' => $save_value,
+    );
+  }
+}
+
+/**
+ * Implements hook_field_delete_instance().
+ *
+ * Delete the translation set.
+ */
+function static_field_field_delete_instance($instance) {
+  if (function_exists('i18n_string_remove')) {
+    $name = array($instance['entity_type'], 'type', $instance['bundle'], $instance['field_name']);
+    i18n_string_remove(implode(':', $name));
+  }
+}
+
+/**
+ * Implements hook_field_prepare_translation().
+ *
+ * @see text_field_prepare_translation()
+ */
+function static_field_field_prepare_translation($entity_type, $entity, $field, $instance, $langcode, &$items, $source_entity, $source_langcode) {
+  // If the translating user is not permitted to use the assigned text format,
+  // we must not expose the source values.
+  $field_name = $field['field_name'];
+  if (!empty($source_entity->{$field_name}[$source_langcode])) {
+    $formats = filter_formats();
+    foreach ($source_entity->{$field_name}[$source_langcode] as $delta => $item) {
+      $format_id = $item['format'];
+      if (!empty($format_id) && !filter_access($formats[$format_id])) {
+        unset($items[$delta]);
+      }
+    }
+  }
+}
